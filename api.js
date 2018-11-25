@@ -48,8 +48,12 @@ async function saveSettings(parameters) {
         pin: body.settings[1],
         mac: body.settings[5]
     }
-    let settings = [rooms, otherSettings]
-    console.log(settings)
+    let settings = {
+        rooms: rooms,
+        email: body.settings[0],
+        pin: body.settings[1],
+        mac: body.settings[5]
+    }
     fs.writeFile("settings.txt", JSON.stringify(settings), (err) => {
         if (err) throw err;
         console.log("Settings saved");
