@@ -5,12 +5,10 @@ const fs = require("fs");
 
 const secret = "4beef6e4354fdeb384a8c5259e089623";
 
-async function saveSettings(parameters) {
+async function saveSettings(email, pin) {
   let body = {};
   await fetch(
-    `http://api.trustsmartcloud.com/getsettingsxml.php?action=D&email=${
-      parameters.email
-    }&pin=${parameters.pin}`
+    `http://api.trustsmartcloud.com/getsettingsxml.php?action=D&email=${email}&pin=${pin}`
   )
     .then(res => res.text())
     .then(body => plist.parse(body))
