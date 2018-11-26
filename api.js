@@ -22,7 +22,7 @@ async function saveSettings(parameters) {
   body.rooms.map((room, index) => {
     let newRoom = {};
     newRoom.name = room;
-    newRoom.status = this.body.roomStatus[index];
+    newRoom.status = body.roomStatus[index];
     newRoom.id = index + 1;
     newRoom.devices = [];
     rooms.push(newRoom);
