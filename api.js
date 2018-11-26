@@ -66,4 +66,4 @@ async function saveSettings(parameters) {
 
 function turnOn(deviceId, roomId) {}
 
-exports.saveSettings = saveSettings;
+module.exports = { saveSettings, turnOn };

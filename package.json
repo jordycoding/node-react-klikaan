@@ -4,7 +4,7 @@
   "description": "",
   "main": "app.js",
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1"
+    "start": "nodemon app.js"
   },
   "author": "",
   "license": "MIT",
@@ -14,7 +14,10 @@
     "form-data": "^2.3.3",
     "inquirer": "^6.2.0",
     "node-fetch": "^2.2.1",
-    "plist": "^3.0.1",
+    "plist": "^3.0.1"
+  },
+  "devDependencies": {
+    "nodemon": "^1.18.6",
     "prettier": "^1.15.2"
   }
 }
