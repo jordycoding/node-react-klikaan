@@ -17,7 +17,6 @@ class LoginComponent extends Component {
       email: this.state.email,
       pin: this.state.pin
     };
-    console.log(JSON.stringify(data));
     fetch("/login", {
       method: "POST",
       headers: {
@@ -25,7 +24,13 @@ class LoginComponent extends Component {
         "Content-Type": "application/json"
       },
       body: JSON.stringify(data)
-    });
+    })
+      .then(res => res.text())
+      .then(text => {
+        if (text === "ok") {
+          this.props.afterSubmit();
+        }
+      });
   }
   handleEmail(event) {
     this.setState({
@@ -60,7 +65,7 @@ class LoginComponent extends Component {
               onChange={this.handlePin}
             />
             <Button
-              fullWidth="true"
+              fullWidth={true}
               variant="contained"
               color="primary"
               onClick={this.handleSubmit}

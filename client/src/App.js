@@ -5,8 +5,13 @@ class App extends Component {
   constructor(props) {
     super(props);
     this.state = {};
+    this.reloadState = this.reloadState.bind(this);
+    this.checkSettingsFile = this.checkSettingsFile.bind(this);
   }
   componentDidMount() {
+    this.checkSettingsFile();
+  }
+  checkSettingsFile() {
     fetch("/settingsFileExists")
       .then(res => res.text())
       .then(text => {
@@ -17,11 +22,15 @@ class App extends Component {
         }
       });
   }
+  reloadState() {
+    this.checkSettingsFile();
+  }
+
   render() {
     if (this.state.settingsFileExists) {
       return <p>Settings file exists</p>;
     } else {
-      return <LoginComponent />;
+      return <LoginComponent afterSubmit={this.checkSettingsFile} />;
     }
   }
 }
