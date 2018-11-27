@@ -1,4 +1,7 @@
 import React, { Component } from "react";
+import Paper from "@material-ui/core/Paper";
+import TextField from "@material-ui/core/TextField";
+import Button from "@material-ui/core/Button";
 import "./loginComponent.css";
 class LoginComponent extends Component {
   constructor(props) {
@@ -7,10 +10,13 @@ class LoginComponent extends Component {
     this.handleSubmit = this.handleSubmit.bind(this);
     this.handleEmail = this.handleEmail.bind(this);
     this.handlePin = this.handlePin.bind(this);
+    this.handleTest = this.handleTest.bind(this);
   }
-  handleSubmit(event) {
-    event.preventDefault();
-    let data = { email: this.state.email, pin: this.state.pin };
+  handleSubmit() {
+    let data = {
+      email: this.state.email,
+      pin: this.state.pin
+    };
     console.log(JSON.stringify(data));
     fetch("/login", {
       method: "POST",
@@ -22,35 +28,47 @@ class LoginComponent extends Component {
     });
   }
   handleEmail(event) {
-    this.setState({ email: event.target.value });
+    this.setState({
+      email: event.target.value
+    });
   }
   handlePin(event) {
-    this.setState({ pin: event.target.value });
+    this.setState({
+      pin: event.target.value
+    });
+  }
+  handleTest(event) {
+    console.log(event.target.value);
   }
   render() {
     return (
       <div className="login">
-        <form className="login" onSubmit={this.handleSubmit}>
-          <label>
-            Email:{" "}
-            <input
-              type="text"
+        <Paper>
+          <form className="loginForm">
+            <p>Node-react-klikaan</p>
+            <TextField
+              label="Email"
+              margin="normal"
               name="email"
-              id="email"
               onChange={this.handleEmail}
             />
-          </label>
-          <label>
-            Pin{" "}
-            <input
-              type="password"
+            <TextField
+              label="Pin"
+              margin="normal"
               name="pin"
-              id="email"
+              type="password"
               onChange={this.handlePin}
             />
-          </label>
-          <button>Log in!</button>
-        </form>
+            <Button
+              fullWidth="true"
+              variant="contained"
+              color="primary"
+              onClick={this.handleSubmit}
+            >
+              Login
+            </Button>
+          </form>
+        </Paper>
       </div>
     );
   }

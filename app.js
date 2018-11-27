@@ -17,6 +17,5 @@ app.get("/getAllRooms", (req, res) => {
   res.send(settings.getAllRooms());
 });
 app.post("/login", (req, res) => {
-  res.send("ok");
   api.saveSettings(req.body.email, req.body.pin);
 });
