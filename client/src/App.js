@@ -1,5 +1,6 @@
 import React, { Component } from "react";
 import LoginComponent from "./Components/loginComponent/loginComponent";
+import RoomsComponent from "./Components/roomsComponent/roomsComponent";
 
 class App extends Component {
   constructor(props) {
@@ -28,7 +29,7 @@ class App extends Component {
 
   render() {
     if (this.state.settingsFileExists) {
-      return <p>Settings file exists</p>;
+      return <RoomsComponent />;
     } else {
       return <LoginComponent afterSubmit={this.checkSettingsFile} />;
     }
