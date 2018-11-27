@@ -17,8 +17,12 @@ class RoomsComponent extends Component {
       .then(resJson => this.setState({ rooms: resJson }));
   }
   render() {
-    // TODO Split up in multiple components
-    // roomcomponent, deviceomponent
+    /*
+    *TODO:
+    *Split up in multiple components
+      - roomcomponent
+      - devicecomponent
+    */
     return (
       <>
         <AppBar position="static">
