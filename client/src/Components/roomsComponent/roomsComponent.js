@@ -4,6 +4,7 @@ import Toolbar from "@material-ui/core/Toolbar";
 import Typography from "@material-ui/core/Typography";
 import Card from "@material-ui/core/Card";
 import CardContent from "@material-ui/core/CardContent";
+import "./roomsComponent.css";
 
 class RoomsComponent extends Component {
   constructor(props) {
@@ -25,7 +26,7 @@ class RoomsComponent extends Component {
             </Typography>
           </Toolbar>
         </AppBar>
-        <div>
+        <div className="rooms">
           {this.state.rooms.map(room => {
             if (room.status === "A") {
               return (
