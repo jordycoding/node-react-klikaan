@@ -4,6 +4,7 @@ import Toolbar from "@material-ui/core/Toolbar";
 import Typography from "@material-ui/core/Typography";
 import Card from "@material-ui/core/Card";
 import CardContent from "@material-ui/core/CardContent";
+import RoomComponent from "../roomComponent/roomComponent";
 import "./roomsComponent.css";
 
 class RoomsComponent extends Component {
@@ -17,12 +18,6 @@ class RoomsComponent extends Component {
       .then(resJson => this.setState({ rooms: resJson }));
   }
   render() {
-    /*
-    *TODO:
-    *Split up in multiple components
-      - roomcomponent
-      - devicecomponent
-    */
     return (
       <>
         <AppBar position="static">
@@ -38,8 +33,8 @@ class RoomsComponent extends Component {
               return (
                 <Card>
                   <CardContent>
-                    <Typography color="textSecondary">{room.name}</Typography>
-                    {room.devices.map(device => {
+                    <RoomComponent room={room} />
+                    {/* {room.devices.map(device => {
                       if (
                         device.status !== "I" &&
                         device.status !== "m" &&
@@ -50,7 +45,7 @@ class RoomsComponent extends Component {
                           <Typography component="p">{device.name}</Typography>
                         );
                       }
-                    })}
+                    })} */}
                   </CardContent>
                 </Card>
               );
