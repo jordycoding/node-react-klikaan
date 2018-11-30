@@ -40,7 +40,9 @@ class DeviceComponent extends Component {
     this.dim = this.dim.bind(this);
   }
   handleSlider(event, value) {
-    this.setState({ value: value });
+    this.setState({ value: value }, () => {
+      dim(this.state.value);
+    });
   }
   turnOn() {
     turnOn(this.props.device.id, this.props.roomId);
@@ -57,7 +59,8 @@ class DeviceComponent extends Component {
         <div className="toggle">
           <MuiThemeProvider theme={theme}>
             <Typography component="p" className="text">
-              {this.props.device.name}
+              {this.props.device.name.charAt(0).toUpperCase() +
+                this.props.device.name.slice(1)}
             </Typography>
             <MarginButton
               variant="contained"
@@ -81,7 +84,10 @@ class DeviceComponent extends Component {
     } else if (this.props.device.status === "D") {
       return (
         <div className="dimmer">
-          <Typography component="p">{this.props.device.name}</Typography>
+          <Typography component="p">
+            {this.props.device.name.charAt(0).toUpperCase() +
+              this.props.device.name.slice(1)}
+          </Typography>
           <MarginSlider value={this.state.value} onChange={this.handleSlider} />
         </div>
       );

@@ -91,4 +91,15 @@ function turnOff(deviceId, roomId) {
   });
 }
 
-module.exports = { saveSettings, turnOn, turnOff };
+function dim(deviceId, roomId, value) {
+  let dimValue = value * 0.01 * 32;
+  let body = new FormData();
+  body.append("action", "I");
+  body.append("username", "JSiPhone");
+  body.append("secret", secret);
+  body.append("name", settings.getMac());
+  body.append("email", settings.getEmail());
+  body.append("commandstring", `!R${roomId}D${deviceId}FdP${dimValue}`);
+}
+
+module.exports = { saveSettings, turnOn, turnOff, dim };

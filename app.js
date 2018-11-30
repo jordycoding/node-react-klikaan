@@ -24,3 +24,6 @@ app.post("/turnOn", (req, res) => {
 app.post("/turnOff", (req, res) => {
   api.turnOff(req.body.deviceId, req.body.roomId);
 });
+app.post("/dim", (req, res) => {
+  api.dim(req.body.deviceId, req.body.roomId, req.body.value);
+});
