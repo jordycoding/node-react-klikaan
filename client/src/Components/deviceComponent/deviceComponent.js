@@ -63,16 +63,16 @@ class DeviceComponent extends Component {
             <MarginButton
               variant="contained"
               color="primary"
-              size="small"
               onClick={this.turnOn}
+              size="small"
             >
               Aan
             </MarginButton>
             <MarginButton
               variant="contained"
               color="secondary"
-              size="small"
               onClick={this.turnOff}
+              size="small"
             >
               Uit
             </MarginButton>
@@ -81,12 +81,31 @@ class DeviceComponent extends Component {
       );
     } else if (this.props.device.status === "D") {
       return (
-        <div className="dimmer">
-          <Typography component="p">
-            {this.props.device.name.charAt(0).toUpperCase() +
-              this.props.device.name.slice(1)}
-          </Typography>
-          <MarginSlider value={this.state.value} onChange={this.handleSlider} />
+        <div className="dimmerRoot">
+          <div className="dimmer">
+            <Typography component="p">
+              {this.props.device.name.charAt(0).toUpperCase() +
+                this.props.device.name.slice(1)}
+            </Typography>
+            <MarginSlider
+              value={this.state.value}
+              onChange={this.handleSlider}
+            />
+          </div>
+          <div className="dimmerButtons">
+            <Button size="small" variant="outlined" color="primary">
+              0%
+            </Button>
+            <Button size="small" variant="outlined" color="primary">
+              25%
+            </Button>
+            <Button size="small" variant="outlined" color="primary">
+              50%
+            </Button>
+            <Button size="small" variant="outlined" color="primary">
+              100%
+            </Button>
+          </div>
         </div>
       );
     }

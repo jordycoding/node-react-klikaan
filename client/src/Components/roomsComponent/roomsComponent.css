@@ -5,3 +5,9 @@ div.rooms {
   row-gap: 1em;
   margin: 1em;
 }
+
+@media screen and (max-width: 1200px) {
+  div.rooms {
+    grid-template-columns: repeat(2, 1fr);
+  }
+}
