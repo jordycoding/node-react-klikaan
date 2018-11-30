@@ -24,6 +24,7 @@ function turnOff(deviceId, roomId) {
 
 function dim(deviceId, roomId, value) {
   let body = { deviceId: deviceId, roomId: roomId, value: value };
+  console.log(JSON.stringify(body));
   fetch("/dim", {
     method: "POST",
     headers: {

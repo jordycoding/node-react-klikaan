@@ -11,6 +11,7 @@ import red from "@material-ui/core/colors/red";
 import green from "@material-ui/core/colors/green";
 import "./deviceComponent.css";
 import { turnOn, turnOff, dim } from "../../api";
+import { debounce } from "lodash";
 
 const theme = createMuiTheme({
   palette: {
@@ -34,15 +35,12 @@ class DeviceComponent extends Component {
   constructor(props) {
     super(props);
     this.state = { value: 0 };
-    this.handleSlider = this.handleSlider.bind(this);
     this.turnOn = this.turnOn.bind(this);
     this.turnOff = this.turnOff.bind(this);
-    this.dim = this.dim.bind(this);
+    this.handleSlider = this.handleSlider.bind(this);
   }
   handleSlider(event, value) {
-    this.setState({ value: value }, () => {
-      dim(this.state.value);
-    });
+    this.setState({ value: value }, () => this.dimDevice());
   }
   turnOn() {
     turnOn(this.props.device.id, this.props.roomId);
@@ -50,9 +48,9 @@ class DeviceComponent extends Component {
   turnOff() {
     turnOff(this.props.device.id, this.props.roomId);
   }
-  dim(value) {
-    dim(this.props.device.id, this.props.roomId, value);
-  }
+  dimDevice = debounce(() => {
+    dim(this.props.device.id, this.props.roomId, this.state.value);
+  }, 500);
   render() {
     if (this.props.device.status === "O") {
       return (

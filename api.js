@@ -99,7 +99,15 @@ function dim(deviceId, roomId, value) {
   body.append("secret", secret);
   body.append("name", settings.getMac());
   body.append("email", settings.getEmail());
-  body.append("commandstring", `!R${roomId}D${deviceId}FdP${dimValue}`);
+  if (dimValue === 0) {
+    body.append("commandstring", `!R${roomId}D${deviceId}F0`);
+  } else {
+    body.append("commandstring", `!R${roomId}D${deviceId}FdP${dimValue}`);
+  }
+  fetch("https://api.trustsmartcloud.com/writerecord.php?", {
+    method: "POST",
+    body: body
+  });
 }
 
 module.exports = { saveSettings, turnOn, turnOff, dim };
