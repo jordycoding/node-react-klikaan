@@ -5,8 +5,7 @@ const fs = require("fs");
 
 const secret = "4beef6e4354fdeb384a8c5259e089623";
 
-async function saveSettings(email, pin) {
-  console.log("Saving settings");
+async function saveSettings(email, pin, callback) {
   let body = {};
   await fetch(
     `http://api.trustsmartcloud.com/getsettingsxml.php?action=D&email=${email}&pin=${pin}`
@@ -59,7 +58,7 @@ async function saveSettings(email, pin) {
   };
   fs.writeFile("settings.txt", JSON.stringify(settings), err => {
     if (err) throw err;
-    console.log("Settings saved");
+    callback();
   });
 }
 

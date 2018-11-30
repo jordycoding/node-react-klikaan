@@ -5,7 +5,7 @@ import RoomsComponent from "./Components/roomsComponent/roomsComponent";
 class App extends Component {
   constructor(props) {
     super(props);
-    this.state = {};
+    this.state = { settingsFileExists: false };
     this.reloadState = this.reloadState.bind(this);
     this.checkSettingsFile = this.checkSettingsFile.bind(this);
   }

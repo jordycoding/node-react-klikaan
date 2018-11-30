@@ -34,18 +34,6 @@ class RoomsComponent extends Component {
                 <Card>
                   <CardContent>
                     <RoomComponent room={room} />
-                    {/* {room.devices.map(device => {
-                      if (
-                        device.status !== "I" &&
-                        device.status !== "m" &&
-                        device.status !== "o"
-                      ) {
-                        console.log(device.name);
-                        return (
-                          <Typography component="p">{device.name}</Typography>
-                        );
-                      }
-                    })} */}
                   </CardContent>
                 </Card>
               );

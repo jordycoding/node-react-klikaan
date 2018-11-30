@@ -1,0 +1,14 @@
+div.toggle {
+  display: flex;
+  flex-direction: row;
+}
+
+.text {
+  align-self: center;
+  flex-grow: 1;
+}
+
+div.dimmer {
+  display: flex;
+  flex-direction: column;
+}
