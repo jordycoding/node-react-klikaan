@@ -1,11 +1,12 @@
 import React, { Component } from "react";
 import LoginComponent from "./Components/loginComponent/loginComponent";
 import RoomsComponent from "./Components/roomsComponent/roomsComponent";
+import { Divider } from "@material-ui/core";
 
 class App extends Component {
   constructor(props) {
     super(props);
-    this.state = { settingsFileExists: false };
+    this.state = {};
     this.reloadState = this.reloadState.bind(this);
     this.checkSettingsFile = this.checkSettingsFile.bind(this);
   }
@@ -28,10 +29,17 @@ class App extends Component {
   }
 
   render() {
-    if (this.state.settingsFileExists) {
-      return <RoomsComponent />;
-    } else {
-      return <LoginComponent afterSubmit={this.checkSettingsFile} />;
+    switch (this.state.settingsFileExists) {
+      case true:
+        return <RoomsComponent />;
+      case false:
+        return <LoginComponent afterSubmit={this.checkSettingsFile} />;
+      default:
+        return (
+          <div className="loading">
+            <p>Loading...</p>
+          </div>
+        );
     }
   }
 }
