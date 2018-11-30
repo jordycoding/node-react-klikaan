@@ -1,17 +1,21 @@
 div.rooms {
-    display: grid;
-    grid-template-columns: repeat(4, 1fr);
-    column-gap: 1em;
-    row-gap: 1em;
-    margin: 1em;
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  column-gap: 1em;
+  row-gap: 1em;
+  margin: 1em;
 }
 
 .appText {
-    flex-grow: 1;
+  flex-grow: 1;
 }
 
 @media screen and (max-width: 1200px) {
-    div.rooms {
-        grid-template-columns: repeat(2, 1fr);
-    }
+  div.rooms {
+    grid-template-columns: repeat(2, 1fr);
+  }
+}
+
+body {
+  padding: none !important;
 }

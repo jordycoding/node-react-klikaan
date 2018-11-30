@@ -35,4 +35,14 @@ function dim(deviceId, roomId, value) {
   });
 }
 
+function removeSettings() {
+  fetch("/removeSettings", {
+    method: "POST",
+    headers: {
+      Accept: "application/json",
+      "Content-Type": "application/json"
+    }
+  });
+}
+
 export { turnOn, turnOff, dim };

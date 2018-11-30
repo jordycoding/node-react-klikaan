@@ -1,0 +1,7 @@
+.appText {
+    flex-grow: 1;
+}
+
+.dialog {
+    padding: none !important;
+}
