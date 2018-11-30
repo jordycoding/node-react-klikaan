@@ -43,8 +43,6 @@ class DeviceComponent extends Component {
     this.setState({ value: value });
   }
   turnOn() {
-    console.log(this.props.device.id);
-    console.log(this.props.roomId);
     turnOn(this.props.device.id, this.props.roomId);
   }
   turnOff() {
