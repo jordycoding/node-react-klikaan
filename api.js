@@ -2,6 +2,7 @@ const fetch = require("node-fetch");
 const plist = require("plist");
 const FormData = require("form-data");
 const fs = require("fs");
+const settings = require("./settings");
 
 const secret = "4beef6e4354fdeb384a8c5259e089623";
 
@@ -62,6 +63,32 @@ async function saveSettings(email, pin, callback) {
   });
 }
 
-function turnOn(deviceId, roomId) {}
+function turnOn(deviceId, roomId) {
+  let body = new FormData();
+  body.append("action", "I");
+  body.append("username", "JSiPhone");
+  body.append("secret", secret);
+  body.append("name", settings.getMac());
+  body.append("email", settings.getEmail());
+  body.append("commandstring", `!R${roomId}D${deviceId}F1`);
+  fetch("https://api.trustsmartcloud.com/writerecord.php?", {
+    method: "POST",
+    body: body
+  });
+}
 
-module.exports = { saveSettings, turnOn };
+function turnOff(deviceId, roomId) {
+  let body = new FormData();
+  body.append("action", "I");
+  body.append("username", "JSiPhone");
+  body.append("secret", secret);
+  body.append("name", settings.getMac());
+  body.append("email", settings.getEmail());
+  body.append("commandstring", `!R${roomId}D${deviceId}F0`);
+  fetch("https://api.trustsmartcloud.com/writerecord.php?", {
+    method: "POST",
+    body: body
+  });
+}
+
+module.exports = { saveSettings, turnOn, turnOff };

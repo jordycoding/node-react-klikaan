@@ -19,7 +19,8 @@ app.post("/login", (req, res) => {
   });
 });
 app.post("/turnOn", (req, res) => {
-  console.log(`device: ${req.body.deviceId}
-    , room: ${req.body.roomId}
-    `);
+  api.turnOn(req.body.deviceId, req.body.roomId);
+});
+app.post("/turnOff", (req, res) => {
+  api.turnOff(req.body.deviceId, req.body.roomId);
 });

@@ -16,4 +16,14 @@ function getAllRooms() {
   return rooms;
 }
 
-module.exports = { settingsFileExists, getAllRooms };
+function getEmail() {
+  let email = JSON.parse(fs.readFileSync("settings.txt")).email;
+  return email;
+}
+
+function getMac() {
+  let mac = JSON.parse(fs.readFileSync("settings.txt")).mac;
+  return mac;
+}
+
+module.exports = { settingsFileExists, getAllRooms, getEmail, getMac };
