@@ -92,7 +92,7 @@ function turnOff(deviceId, roomId) {
 }
 
 function dim(deviceId, roomId, value) {
-  let dimValue = value * 0.01 * 32;
+  let dimValue = Math.round(value * 0.01 * 32);
   let body = new FormData();
   body.append("action", "I");
   body.append("username", "JSiPhone");
