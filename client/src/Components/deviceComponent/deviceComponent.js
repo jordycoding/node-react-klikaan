@@ -22,7 +22,7 @@ const theme = createMuiTheme({
 
 const MarginSlider = withStyles({
   root: {
-    margin: "7px 5px 7px 5px"
+    margin: "10px 5px 10px 5px"
   }
 })(Slider);
 
@@ -93,16 +93,36 @@ class DeviceComponent extends Component {
             />
           </div>
           <div className="dimmerButtons">
-            <Button size="small" variant="outlined" color="primary">
+            <Button
+              size="small"
+              variant="outlined"
+              color="primary"
+              onClick={() => dim(this.props.device.id, this.props.roomId, 0)}
+            >
               0%
             </Button>
-            <Button size="small" variant="outlined" color="primary">
+            <Button
+              size="small"
+              variant="outlined"
+              color="primary"
+              onClick={() => dim(this.props.device.id, this.props.roomId, 25)}
+            >
               25%
             </Button>
-            <Button size="small" variant="outlined" color="primary">
+            <Button
+              size="small"
+              variant="outlined"
+              color="primary"
+              onClick={() => dim(this.props.device.id, this.props.roomId, 50)}
+            >
               50%
             </Button>
-            <Button size="small" variant="outlined" color="primary">
+            <Button
+              size="small"
+              variant="outlined"
+              color="primary"
+              onClick={() => dim(this.props.device.id, this.props.roomId, 100)}
+            >
               100%
             </Button>
           </div>
