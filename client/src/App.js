@@ -31,7 +31,7 @@ class App extends Component {
   render() {
     switch (this.state.settingsFileExists) {
       case true:
-        return <RoomsComponent />;
+        return <RoomsComponent checkSettingsFile={this.checkSettingsFile} />;
       case false:
         return <LoginComponent afterSubmit={this.checkSettingsFile} />;
       default:

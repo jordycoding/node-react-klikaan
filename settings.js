@@ -26,4 +26,14 @@ function getMac() {
   return mac;
 }
 
-module.exports = { settingsFileExists, getAllRooms, getEmail, getMac };
+function removeSettingsFile(callback) {
+  fs.unlink("settings.txt", () => callback());
+}
+
+module.exports = {
+  settingsFileExists,
+  getAllRooms,
+  getEmail,
+  getMac,
+  removeSettingsFile
+};

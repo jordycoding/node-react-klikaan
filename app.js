@@ -27,3 +27,7 @@ app.post("/turnOff", (req, res) => {
 app.post("/dim", (req, res) => {
   api.dim(req.body.deviceId, req.body.roomId, req.body.value);
 });
+app.post("/removeSettings", (req, res) => {
+  console.log("Removing settings");
+  settings.removeSettingsFile(() => res.send("removed"));
+});

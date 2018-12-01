@@ -73,6 +73,7 @@ class RoomsComponent extends Component {
         <SettingsDialog
           open={this.state.dialogOpen}
           close={this.closeSettingsDialog}
+          checkSettingsFile={this.props.checkSettingsFile}
         />
       </>
     );
