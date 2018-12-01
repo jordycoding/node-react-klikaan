@@ -40,6 +40,7 @@ class DeviceComponent extends Component {
     this.handleSlider = this.handleSlider.bind(this);
   }
   handleSlider(event, value) {
+    this.props.toggleAllOff(false);
     this.setState({ value: value }, () => this.dimDevice());
   }
   turnOn() {
@@ -88,7 +89,7 @@ class DeviceComponent extends Component {
                 this.props.device.name.slice(1)}
             </Typography>
             <MarginSlider
-              value={this.state.value}
+              value={this.props.allOff ? 0 : this.state.value}
               onChange={this.handleSlider}
             />
           </div>
@@ -97,7 +98,10 @@ class DeviceComponent extends Component {
               size="small"
               variant="outlined"
               color="primary"
-              onClick={() => dim(this.props.device.id, this.props.roomId, 0)}
+              onClick={() => {
+                dim(this.props.device.id, this.props.roomId, 0);
+                this.setState({ value: 0 });
+              }}
             >
               0%
             </Button>
@@ -105,7 +109,10 @@ class DeviceComponent extends Component {
               size="small"
               variant="outlined"
               color="primary"
-              onClick={() => dim(this.props.device.id, this.props.roomId, 25)}
+              onClick={() => {
+                dim(this.props.device.id, this.props.roomId, 25);
+                this.setState({ value: 25 });
+              }}
             >
               25%
             </Button>
@@ -113,7 +120,10 @@ class DeviceComponent extends Component {
               size="small"
               variant="outlined"
               color="primary"
-              onClick={() => dim(this.props.device.id, this.props.roomId, 50)}
+              onClick={() => {
+                dim(this.props.device.id, this.props.roomId, 50);
+                this.setState({ value: 50 });
+              }}
             >
               50%
             </Button>
@@ -121,7 +131,10 @@ class DeviceComponent extends Component {
               size="small"
               variant="outlined"
               color="primary"
-              onClick={() => dim(this.props.device.id, this.props.roomId, 100)}
+              onClick={() => {
+                dim(this.props.device.id, this.props.roomId, 100);
+                this.setState({ value: 100 });
+              }}
             >
               100%
             </Button>

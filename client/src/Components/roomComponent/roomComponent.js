@@ -7,6 +7,11 @@ import "./roomComponent.css";
 class RoomComponent extends Component {
   constructor(props) {
     super(props);
+    this.state = { allOff: false };
+    this.setAllOff = this.setAllOff.bind(this);
+  }
+  setAllOff(value = !this.state.allOff) {
+    this.setState({ allOff: value });
   }
   render() {
     return (
@@ -17,7 +22,7 @@ class RoomComponent extends Component {
             color="secondary"
             variant="contained"
             size="small"
-            onClick={() => allOff(this.props.room.id)}
+            onClick={() => this.setAllOff(true)}
           >
             Alles uit
           </Button>
@@ -25,7 +30,12 @@ class RoomComponent extends Component {
         {this.props.room.devices.map(device => {
           if (device.status === "D" || device.status === "O") {
             return (
-              <DeviceComponent device={device} roomId={this.props.room.id} />
+              <DeviceComponent
+                device={device}
+                roomId={this.props.room.id}
+                allOff={this.state.allOff}
+                toggleAllOff={this.setAllOff}
+              />
             );
           }
         })}
