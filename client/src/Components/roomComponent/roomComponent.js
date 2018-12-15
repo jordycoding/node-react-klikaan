@@ -12,6 +12,7 @@ class RoomComponent extends Component {
   }
   setAllOff(value = !this.state.allOff) {
     this.setState({ allOff: value });
+    allOff(this.props.room.id);
   }
   render() {
     return (

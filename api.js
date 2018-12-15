@@ -122,6 +122,7 @@ function allOff(roomId) {
     method: "POST",
     body: body
   });
+  console.log(`~R${roomId}Fa`);
 }
 
 module.exports = { saveSettings, turnOn, turnOff, dim, allOff };

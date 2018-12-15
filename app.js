@@ -31,6 +31,5 @@ app.post("/allOff", (req, res) => {
   api.allOff(req.body.roomId);
 });
 app.post("/removeSettings", (req, res) => {
-  console.log("Removing settings");
   settings.removeSettingsFile(() => res.send("removed"));
 });
