@@ -16,6 +16,10 @@ function getAllRooms() {
   return rooms;
 }
 
+function getAllSequences() {
+  let sequences = JSON.parse(fs.readFileSync("settings.txt")).sequences;
+  return sequences;
+}
 function getEmail() {
   let email = JSON.parse(fs.readFileSync("settings.txt")).email;
   return email;
@@ -33,6 +37,7 @@ function removeSettingsFile(callback) {
 module.exports = {
   settingsFileExists,
   getAllRooms,
+  getAllSequences,
   getEmail,
   getMac,
   removeSettingsFile

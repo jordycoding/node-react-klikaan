@@ -46,6 +46,17 @@ async function saveSettings(email, pin, callback) {
     }
     counter++;
   });
+  let sequences = [];
+  body.sequences.map(rawSequence => {
+    let newSequence = {};
+    newSequence.title = rawSequence[0];
+    newSequence.commands = [];
+    let sequenceWithoutTitle = rawSequence.slice(1);
+    sequenceWithoutTitle.map(sequence => {
+      newSequence.commands.push(sequence);
+    });
+    sequences.push(newSequence);
+  });
   let otherSettings = {
     email: body.settings[0],
     pin: body.settings[1],
@@ -53,6 +64,7 @@ async function saveSettings(email, pin, callback) {
   };
   let settings = {
     rooms: rooms,
+    sequences: sequences,
     email: body.settings[0],
     pin: body.settings[1],
     mac: body.settings[5]
