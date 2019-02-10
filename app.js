@@ -14,7 +14,7 @@ app.get("/getAllRooms", (req, res) => {
   res.send(settings.getAllRooms());
 });
 app.get("/getAllSequences", (req, res) => {
-  res.send(settings.getAllSequences);
+  res.send(settings.getAllSequences());
 });
 app.post("/login", (req, res) => {
   api.saveSettings(req.body.email, req.body.pin, () => {
