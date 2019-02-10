@@ -1,7 +1,6 @@
 import React, { Component } from "react";
 import LoginComponent from "./Components/loginComponent/loginComponent";
 import RoomsComponent from "./Components/roomsComponent/roomsComponent";
-import { Divider } from "@material-ui/core";
 
 class App extends Component {
   constructor(props) {
