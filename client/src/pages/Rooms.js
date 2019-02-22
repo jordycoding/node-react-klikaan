@@ -1,22 +1,15 @@
 import React, { Component } from "react";
-import AppBar from "@material-ui/core/AppBar";
-import Toolbar from "@material-ui/core/Toolbar";
-import Typography from "@material-ui/core/Typography";
 import Card from "@material-ui/core/Card";
 import CardContent from "@material-ui/core/CardContent";
 import RoomComponent from "./rooms/Room";
-import SettingsIcon from "@material-ui/icons/Settings";
-import IconButton from "@material-ui/core/IconButton";
-import SettingsDialog from "../components/settingsDialog";
 import "./rooms/rooms.css";
+import AppToolbar from "../components/AppToolbar";
 class RoomsComponent extends Component {
   constructor(props) {
     super(props);
     this.state = {
       rooms: []
     };
-    this.toggleSettingsDialog = this.toggleSettingsDialog.bind(this);
-    this.closeSettingsDialog = this.closeSettingsDialog.bind(this);
   }
   componentDidMount() {
     fetch("/getAllRooms")
@@ -28,35 +21,10 @@ class RoomsComponent extends Component {
         })
       );
   }
-  toggleSettingsDialog() {
-    this.setState({
-      dialogOpen: !this.state.dialogOpen
-    });
-  }
-  closeSettingsDialog() {
-    this.setState({
-      dialogOpen: false
-    });
-  }
   render() {
     return (
       <>
-        <AppBar position="static">
-          <Toolbar>
-            <Typography
-              variant="h6"
-              color="inherit"
-              classes={{
-                root: "appText"
-              }}
-            >
-              Ruimtes
-            </Typography>
-            <IconButton color={"inherit"} onClick={this.toggleSettingsDialog}>
-              <SettingsIcon />
-            </IconButton>
-          </Toolbar>
-        </AppBar>
+        <AppToolbar checkSettingsFile={this.props.checkSettingsFile} />
         <div className="rooms">
           {this.state.rooms.map(room => {
             if (room.status === "A") {
@@ -70,11 +38,6 @@ class RoomsComponent extends Component {
             }
           })}
         </div>
-        <SettingsDialog
-          open={this.state.dialogOpen}
-          close={this.closeSettingsDialog}
-          checkSettingsFile={this.props.checkSettingsFile}
-        />
       </>
     );
   }
