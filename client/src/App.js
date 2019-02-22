@@ -1,6 +1,6 @@
 import React, { Component } from "react";
-import LoginComponent from "./Components/loginComponent/loginComponent";
-import RoomsComponent from "./Components/roomsComponent/roomsComponent";
+import LoginComponent from "./pages/Login";
+import RoomsComponent from "./pages/Rooms";
 
 class App extends Component {
   constructor(props) {

@@ -1,9 +1,9 @@
 import React, { Component } from "react";
 import Typography from "@material-ui/core/Typography";
-import DeviceComponent from "../deviceComponent/deviceComponent";
+import DeviceComponent from "./room/Device";
 import Button from "@material-ui/core/Button";
-import { allOff } from "../../api";
-import "./roomComponent.css";
+import { allOff } from "../../utils/api";
+import "./room/room.css";
 class RoomComponent extends Component {
   constructor(props) {
     super(props);

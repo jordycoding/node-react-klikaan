@@ -9,8 +9,8 @@ import {
 } from "@material-ui/core";
 import red from "@material-ui/core/colors/red";
 import green from "@material-ui/core/colors/green";
-import "./deviceComponent.css";
-import { turnOn, turnOff, dim } from "../../api";
+import "./device/device.css";
+import { turnOn, turnOff, dim } from "../../../utils/api";
 import { debounce } from "lodash";
 
 const theme = createMuiTheme({

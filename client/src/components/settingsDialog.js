@@ -10,7 +10,7 @@ import ListItemText from "@material-ui/core/ListItemText";
 import Divider from "@material-ui/core/Divider";
 import IconButton from "@material-ui/core/IconButton";
 import CloseIcon from "@material-ui/icons/Close";
-import { removeSettings } from "../api";
+import { removeSettings } from "../utils/api";
 
 function Transition(props) {
   return <Slide direction="up" {...props} />;
