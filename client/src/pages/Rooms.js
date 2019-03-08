@@ -8,12 +8,15 @@ import { connect } from "react-redux";
 import { setRooms, setLoading } from "../modules/rooms";
 class RoomsComponent extends Component {
   componentDidMount() {
-    this.props.dispatch(setLoading(true));
     fetch("/getAllRooms")
       .then(res => res.json())
       .then(resJson => {
-        this.props.dispatch(setRooms(resJson));
-        this.props.dispatch(setLoading(false));
+        let rooms = resJson.map(room => {
+          let newRoom = room;
+          newRoom.allOffToggled = false;
+          return room;
+        });
+        this.props.dispatch(setRooms(rooms));
       });
   }
   render() {
