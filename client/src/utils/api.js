@@ -37,7 +37,7 @@ function dim(deviceId, roomId, value) {
 
 function allOff(roomId) {
   let body = { roomId: roomId };
-  fetch("/allOff", {
+  return fetch("/allOff", {
     method: "POST",
     headers: {
       Accept: "application/json",

@@ -15,6 +15,20 @@ function roomsReducer(state = initialState, action) {
         ...state,
         isLoading: action.loading
       };
+    case "SET_ALL_OFF":
+      return {
+        ...state,
+        rooms: state.rooms.map(room => {
+          if (room.id === action.roomId) {
+            return {
+              ...room,
+              allOffToggled: action.allOffValue
+            };
+          } else {
+            return room;
+          }
+        })
+      };
     default:
       return state;
   }
@@ -34,5 +48,12 @@ function setLoading(loading) {
   };
 }
 
+function setAllOff(roomId, allOffValue) {
+  return {
+    roomId,
+    allOffValue
+  };
+}
+
 export default roomsReducer;
-export { setRooms, setLoading };
+export { setRooms, setLoading, setAllOff };

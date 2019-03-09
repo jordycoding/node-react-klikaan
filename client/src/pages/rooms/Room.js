@@ -3,7 +3,9 @@ import Typography from "@material-ui/core/Typography";
 import DeviceComponent from "./room/Device";
 import Button from "@material-ui/core/Button";
 import { allOff } from "../../utils/api";
+import { setAllOff } from "../../modules/rooms";
 import "./room/room.css";
+import { connect } from "react-redux";
 class RoomComponent extends Component {
   constructor(props) {
     super(props);
@@ -11,8 +13,15 @@ class RoomComponent extends Component {
     this.setAllOff = this.setAllOff.bind(this);
   }
   setAllOff(value = !this.state.allOff) {
-    this.setState({ allOff: value });
-    allOff(this.props.room.id);
+    // this.setState({ allOff: value });
+    this.props.dispatch(setAllOff(this.props.room.id, true));
+    allOff(this.props.room.id)
+      .then(res => res.text())
+      .then(text => {
+        if (text === "ok") {
+          this.props.dispatch(setAllOff(this.props.room.id, false));
+        }
+      });
   }
   render() {
     return (
@@ -45,4 +54,4 @@ class RoomComponent extends Component {
   }
 }
 
-export default RoomComponent;
+export default connect()(RoomComponent);
