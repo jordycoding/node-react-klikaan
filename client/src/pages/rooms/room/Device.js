@@ -39,8 +39,16 @@ class DeviceComponent extends Component {
     this.turnOff = this.turnOff.bind(this);
     this.handleSlider = this.handleSlider.bind(this);
   }
+  static getDerivedStateFromProps(nextProps, prevState) {
+    if (nextProps.allOffToggled === true) {
+      return {
+        value: 0
+      };
+    } else {
+      return null;
+    }
+  }
   handleSlider(event, value) {
-    this.props.toggleAllOff(false);
     this.setState({ value: value }, () => this.dimDevice());
   }
   turnOn() {
@@ -89,7 +97,7 @@ class DeviceComponent extends Component {
                 this.props.device.name.slice(1)}
             </Typography>
             <MarginSlider
-              value={this.props.allOff ? 0 : this.state.value}
+              value={this.state.value}
               onChange={this.handleSlider}
             />
           </div>

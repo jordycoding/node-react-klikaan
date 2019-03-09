@@ -43,8 +43,7 @@ class RoomComponent extends Component {
               <DeviceComponent
                 device={device}
                 roomId={this.props.room.id}
-                allOff={this.state.allOff}
-                toggleAllOff={this.setAllOff}
+                allOffToggled={this.props.room.allOffToggled}
               />
             );
           }
