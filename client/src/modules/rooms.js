@@ -50,6 +50,7 @@ function setLoading(loading) {
 
 function setAllOff(roomId, allOffValue) {
   return {
+    type: "SET_ALL_OFF",
     roomId,
     allOffValue
   };
