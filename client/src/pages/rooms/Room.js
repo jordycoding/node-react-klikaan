@@ -42,6 +42,7 @@ class RoomComponent extends Component {
                 device={device}
                 roomId={this.props.room.id}
                 allOffToggled={this.props.room.allOffToggled}
+                key={`${this.props.room.id}${device.id}`}
               />
             );
           }

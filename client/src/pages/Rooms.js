@@ -30,7 +30,7 @@ class RoomsComponent extends Component {
             {this.props.rooms.map(room => {
               if (room.status === "A") {
                 return (
-                  <Card>
+                  <Card key={room.id}>
                     <CardContent>
                       <RoomComponent room={room} />
                     </CardContent>
@@ -40,6 +40,7 @@ class RoomsComponent extends Component {
             })}
           </div>
         )}
+        {React.version}
       </>
     );
   }
