@@ -9,11 +9,9 @@ import { connect } from "react-redux";
 class RoomComponent extends Component {
   constructor(props) {
     super(props);
-    this.state = { allOff: false };
-    this.setAllOff = this.setAllOff.bind(this);
+    this.setAllOff = this.turnAllOff.bind(this);
   }
-  setAllOff(value = !this.state.allOff) {
-    // this.setState({ allOff: value });
+  turnAllOff() {
     this.props.dispatch(setAllOff(this.props.room.id, true));
     allOff(this.props.room.id)
       .then(res => res.text())
@@ -32,7 +30,7 @@ class RoomComponent extends Component {
             color="secondary"
             variant="contained"
             size="small"
-            onClick={() => this.setAllOff(true)}
+            onClick={() => this.turnAllOff()}
           >
             Alles uit
           </Button>
