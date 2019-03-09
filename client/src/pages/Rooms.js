@@ -40,7 +40,6 @@ class RoomsComponent extends Component {
             })}
           </div>
         )}
-        {React.version}
       </>
     );
   }
