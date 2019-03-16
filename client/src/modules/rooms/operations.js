@@ -20,11 +20,9 @@ function getRooms() {
 
 function setRoomAllOff(id) {
   return function(dispatch) {
+    dispatch(actions.setAllOff(id, true));
     return allOff(id)
-      .then(res => {
-        console.log("All off");
-        res.text();
-      })
+      .then(res => res.text())
       .then(text => {
         if (text === "ok") {
           dispatch(actions.setAllOff(id, false));

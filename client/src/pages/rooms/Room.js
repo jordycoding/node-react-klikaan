@@ -12,7 +12,7 @@ class RoomComponent extends Component {
     this.setAllOff = this.turnAllOff.bind(this);
   }
   turnAllOff() {
-    roomsOperations.setRoomAllOff(this.props.roomId);
+    this.props.dispatch(roomsOperations.setRoomAllOff(this.props.room.id));
   }
   render() {
     return (
