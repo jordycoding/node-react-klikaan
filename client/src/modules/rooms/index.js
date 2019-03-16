@@ -1,4 +1,4 @@
 import roomsReducer from "./reducers";
 
-export { default as roomsActions } from "./actions";
+export { default as roomsOperations } from "./operations";
 export default roomsReducer;

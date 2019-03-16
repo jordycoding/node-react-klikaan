@@ -5,23 +5,14 @@ import RoomComponent from "./rooms/Room";
 import "./rooms/rooms.css";
 import AppToolbar from "../components/AppToolbar";
 import { connect } from "react-redux";
-import { roomsActions } from "../modules/rooms/index";
+import { roomsOperations } from "../modules/rooms/index";
 import { settingsOperations } from "../modules/settings";
 class RoomsComponent extends Component {
   constructor(props) {
     super(props);
   }
   componentDidMount() {
-    fetch("/getAllRooms")
-      .then(res => res.json())
-      .then(resJson => {
-        let rooms = resJson.map(room => {
-          let newRoom = room;
-          newRoom.allOffToggled = false;
-          return room;
-        });
-        this.props.dispatch(roomsActions.setRooms(rooms));
-      });
+    this.props.dispatch(roomsOperations.getRooms());
   }
   render() {
     return (

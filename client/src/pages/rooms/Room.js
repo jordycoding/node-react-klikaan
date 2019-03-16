@@ -3,7 +3,7 @@ import Typography from "@material-ui/core/Typography";
 import DeviceComponent from "./room/Device";
 import Button from "@material-ui/core/Button";
 import { allOff } from "../../utils/api";
-import { roomsActions } from "../../modules/rooms/index.js";
+import { roomsOperations } from "../../modules/rooms/index.js";
 import "./room/room.css";
 import { connect } from "react-redux";
 class RoomComponent extends Component {
@@ -12,16 +12,7 @@ class RoomComponent extends Component {
     this.setAllOff = this.turnAllOff.bind(this);
   }
   turnAllOff() {
-    this.props.dispatch(roomsActions.setAllOff(this.props.room.id, true));
-    allOff(this.props.room.id)
-      .then(res => res.text())
-      .then(text => {
-        if (text === "ok") {
-          this.props.dispatch(
-            roomsActions.setAllOff(this.props.room.id, false)
-          );
-        }
-      });
+    roomsOperations.setRoomAllOff(this.props.roomId);
   }
   render() {
     return (

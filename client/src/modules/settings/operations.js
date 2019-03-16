@@ -2,7 +2,7 @@ import actions from "./actions";
 
 const setSettingsLoading = actions.setSettingsLoading;
 
-function checkSettingsExists(exists) {
+function checkSettingsExists() {
   return function(dispatch) {
     return fetch("/settingsFileExists")
       .then(res => res.json())
