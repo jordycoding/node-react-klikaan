@@ -16,10 +16,11 @@ class App extends Component {
     this.checkSettingsFile();
   }
   checkSettingsFile() {
+    console.log("Checking settings file");
     fetch("/settingsFileExists")
       .then(res => res.text())
       .then(text => {
-        this.props.dispatch(settingsActions.setSettingsFileExists(true));
+        this.props.dispatch(settingsActions.setSettingsExists(true));
       });
   }
   reloadState() {
@@ -44,7 +45,7 @@ class App extends Component {
 
 function mapStateToProps(state) {
   return {
-    settingsFileExists: state.settings.settingsFileExists
+    settingsFileExists: state.settings.settingsExists
   };
 }
 

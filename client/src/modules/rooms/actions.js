@@ -7,7 +7,7 @@ function setRooms(rooms) {
   };
 }
 
-function setLoading(loading) {
+function setRoomsLoading(loading) {
   return {
     type: types.SET_LOADING,
     loading
@@ -22,4 +22,4 @@ function setAllOff(roomId, allOffValue) {
   };
 }
 
-export default { setRooms, setLoading, setAllOff };
+export default { setRooms, setRoomsLoading, setAllOff };

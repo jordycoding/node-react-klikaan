@@ -9,7 +9,7 @@ function roomsReducer(state = initialState, action) {
   switch (action.type) {
     case types.SET_ROOMS:
       return { ...state, rooms: action.rooms };
-    case types.SET_LOADING:
+    case types.SET_ROOMS_LOADING:
       return { ...state, loading: action.loading };
     case types.SET_ALL_OFF:
       return {

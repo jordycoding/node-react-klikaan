@@ -1,17 +1,17 @@
 import types from "./types";
 
-function setExists(exists) {
+function setSettingsExists(exists) {
   return {
     type: types.SET_EXISTS,
     exists
   };
 }
 
-function setLoading(loading) {
+function setSettingsLoading(loading) {
   return {
     type: types.SET_LOADING,
     loading
   };
 }
 
-export default { setExists, setLoading };
+export default { setSettingsExists, setSettingsLoading };

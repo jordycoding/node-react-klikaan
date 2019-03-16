@@ -7,12 +7,12 @@ const initialState = {
 
 function settingsReducer(state = initialState, action) {
   switch (action.types) {
-    case types.SET_EXISTS:
+    case types.SET_SETTINGS_EXISTS:
       return {
         ...state,
         settingsExists: action.exists
       };
-    case types.SET_LOADING:
+    case types.SET_SETTINGS_LOADING:
       return {
         ...state,
         settingsLoading: action.loading
