@@ -5,7 +5,7 @@ import RoomComponent from "./rooms/Room";
 import "./rooms/rooms.css";
 import AppToolbar from "../components/AppToolbar";
 import { connect } from "react-redux";
-import { setRooms, setLoading } from "../modules/rooms";
+import { roomsActions } from "../modules/rooms/index";
 class RoomsComponent extends Component {
   componentDidMount() {
     fetch("/getAllRooms")
@@ -16,7 +16,7 @@ class RoomsComponent extends Component {
           newRoom.allOffToggled = false;
           return room;
         });
-        this.props.dispatch(setRooms(rooms));
+        this.props.dispatch(roomsActions.setRooms(rooms));
       });
   }
   render() {
@@ -47,8 +47,8 @@ class RoomsComponent extends Component {
 
 function mapStateToProps(state) {
   return {
-    rooms: state.rooms,
-    isLoading: state.isLoading
+    rooms: state.rooms.rooms,
+    isLoading: state.rooms.isLoading
   };
 }
 export default connect(mapStateToProps)(RoomsComponent);

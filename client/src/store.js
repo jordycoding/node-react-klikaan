@@ -1,8 +1,8 @@
 import { createStore } from "redux";
-import roomsReducer from "./modules/rooms";
+import reducer from "./modules/redux";
 
 const store = createStore(
-  roomsReducer,
+  reducer,
   window.__REDUX_DEVTOOLS_EXTENSION__ && window.__REDUX_DEVTOOLS_EXTENSION__()
 );
 

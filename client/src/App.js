@@ -3,7 +3,8 @@ import LoginComponent from "./pages/Login";
 import RoomsComponent from "./pages/Rooms";
 import CircularProgress from "@material-ui/core/CircularProgress";
 import { connect } from "react-redux";
-import { setSettingsFileExists } from "./modules/rooms";
+import { settingsActions } from "./modules/settings";
+
 class App extends Component {
   constructor(props) {
     super(props);
@@ -18,7 +19,7 @@ class App extends Component {
     fetch("/settingsFileExists")
       .then(res => res.text())
       .then(text => {
-        this.props.dispatch(setSettingsFileExists(true));
+        this.props.dispatch(settingsActions.setSettingsFileExists(true));
       });
   }
   reloadState() {
@@ -43,7 +44,7 @@ class App extends Component {
 
 function mapStateToProps(state) {
   return {
-    settingsFileExists: state.settingsFileExists
+    settingsFileExists: state.settings.settingsFileExists
   };
 }
 
