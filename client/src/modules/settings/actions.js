@@ -9,7 +9,7 @@ function setSettingsExists(exists) {
 
 function setSettingsLoading(loading) {
   return {
-    type: types.SET_LOADING,
+    type: types.SET_SETTINGS_LOADING,
     loading
   };
 }

@@ -6,7 +6,11 @@ import "./rooms/rooms.css";
 import AppToolbar from "../components/AppToolbar";
 import { connect } from "react-redux";
 import { roomsActions } from "../modules/rooms/index";
+import { settingsOperations } from "../modules/settings";
 class RoomsComponent extends Component {
+  constructor(props) {
+    super(props);
+  }
   componentDidMount() {
     fetch("/getAllRooms")
       .then(res => res.json())
@@ -22,7 +26,11 @@ class RoomsComponent extends Component {
   render() {
     return (
       <>
-        <AppToolbar checkSettingsFile={this.props.checkSettingsFile} />
+        <AppToolbar
+          checkSettingsFile={() =>
+            this.props.dispatch(settingsOperations.checkSettingsExists())
+          }
+        />
         {this.props.isLoading ? (
           <p>Loading...</p>
         ) : (

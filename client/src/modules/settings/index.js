@@ -1,4 +1,4 @@
 import settingsReducer from "./reducers";
 
-export { default as settingsActions } from "./actions";
+export { default as settingsOperations } from "./operations";
 export default settingsReducer;
