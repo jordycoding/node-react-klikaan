@@ -8,6 +8,7 @@ const initialState = {
 function settingsReducer(state = initialState, action) {
   switch (action.types) {
     case types.SET_SETTINGS_EXISTS:
+      console.log("Setting settings exists");
       return {
         ...state,
         settingsExists: action.exists
