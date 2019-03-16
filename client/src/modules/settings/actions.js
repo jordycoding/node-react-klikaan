@@ -1,12 +1,10 @@
 import types from "./types";
 
 function setSettingsExists(exists) {
-  let action = {
+  return {
     type: types.SET_SETTINGS_EXISTS,
     exists
   };
-  console.log(action);
-  return action;
 }
 
 function setSettingsLoading(loading) {

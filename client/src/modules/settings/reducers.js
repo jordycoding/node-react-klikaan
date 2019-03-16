@@ -6,9 +6,10 @@ const initialState = {
 };
 
 function settingsReducer(state = initialState, action) {
+  console.log("Settings reducer");
   switch (action.types) {
     case types.SET_SETTINGS_EXISTS:
-      console.log("Setting settings exists");
+      console.log(action);
       return {
         ...state,
         settingsExists: action.exists
@@ -19,6 +20,7 @@ function settingsReducer(state = initialState, action) {
         settingsLoading: action.loading
       };
     default:
+      console.log(action);
       return state;
   }
 }
