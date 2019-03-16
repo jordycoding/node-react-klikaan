@@ -1,7 +1,9 @@
 import React, { Component } from "react";
 import LoginComponent from "./pages/Login";
 import RoomsComponent from "./pages/Rooms";
-
+import CircularProgress from "@material-ui/core/CircularProgress";
+import { connect } from "react-redux";
+import { setSettingsFileExists } from "./modules/rooms";
 class App extends Component {
   constructor(props) {
     super(props);
@@ -16,11 +18,7 @@ class App extends Component {
     fetch("/settingsFileExists")
       .then(res => res.text())
       .then(text => {
-        if (text === "true") {
-          this.setState({ settingsFileExists: true });
-        } else {
-          this.setState({ settingsFileExists: false });
-        }
+        this.props.dispatch(setSettingsFileExists(true));
       });
   }
   reloadState() {
@@ -28,7 +26,7 @@ class App extends Component {
   }
 
   render() {
-    switch (this.state.settingsFileExists) {
+    switch (this.props.settingsFileExists) {
       case true:
         return <RoomsComponent checkSettingsFile={this.checkSettingsFile} />;
       case false:
@@ -36,11 +34,17 @@ class App extends Component {
       default:
         return (
           <div className="loading">
-            <p>Loading...</p>
+            <CircularProgress />
           </div>
         );
     }
   }
 }
 
-export default App;
+function mapStateToProps(state) {
+  return {
+    settingsFileExists: state.settingsFileExists
+  };
+}
+
+export default connect(mapStateToProps)(App);

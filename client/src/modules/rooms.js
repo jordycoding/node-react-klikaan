@@ -1,6 +1,7 @@
 const initialState = {
   rooms: [],
-  isLoading: false
+  isLoading: false,
+  settingsFileExists: false
 };
 
 function roomsReducer(state = initialState, action) {
@@ -29,6 +30,11 @@ function roomsReducer(state = initialState, action) {
           }
         })
       };
+    case "SET_SETTINGS_EXIST":
+      return {
+        ...state,
+        settingsFileExists: action.exists
+      };
     default:
       return state;
   }
@@ -56,5 +62,12 @@ function setAllOff(roomId, allOffValue) {
   };
 }
 
+function setSettingsFileExists(exists) {
+  return {
+    type: "SET_SETTINGS_EXIST",
+    exists
+  };
+}
+
 export default roomsReducer;
-export { setRooms, setLoading, setAllOff };
+export { setRooms, setLoading, setAllOff, setSettingsFileExists };
