@@ -12,14 +12,19 @@ class App extends Component {
     this.state = {};
   }
   componentDidMount() {
-    this.props
-      .dispatch(settingsOperations.checkSettingsExists())
-      .then(() => this.props.dispatch(roomsOperations.getRooms()));
+    this.props.dispatch(settingsOperations.checkSettingsExists()).then(() => {
+      if (this.props.settingsFileExists) {
+        this.props.dispatch(roomsOperations.getRooms());
+      } else {
+        return;
+      }
+    });
   }
   render() {
     if (
       this.props.settingsLoading === true ||
-      this.props.roomsLoading === true
+      this.props.roomsLoading === true ||
+      (this.props.roomsLoading === true && this.props.settingsLoading === true)
     ) {
       return (
         <div className="loading">

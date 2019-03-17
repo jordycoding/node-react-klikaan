@@ -12,6 +12,8 @@ function checkSettingsExists() {
           dispatch(actions.setSettingsExists(true));
           dispatch(actions.setSettingsLoading(false));
         } else {
+          dispatch(actions.setSettingsExists(false));
+          dispatch(actions.setSettingsLoading(false));
         }
       });
   };
