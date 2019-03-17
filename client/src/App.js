@@ -35,13 +35,7 @@ class App extends Component {
       this.props.settingsFileExists === false &&
       this.props.settingsLoading === false
     ) {
-      return (
-        <LoginComponent
-          afterSubmit={() =>
-            this.props.dispatch(settingsOperations.checkSettingsExists())
-          }
-        />
-      );
+      return <LoginComponent />;
     } else if (
       this.props.roomsLoading === false &&
       this.props.settingsFileExists === true

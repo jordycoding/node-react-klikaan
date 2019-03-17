@@ -1,6 +1,7 @@
 import actions from "./actions";
 
 const setSettingsLoading = actions.setSettingsLoading;
+const setSettingsExists = actions.setSettingsExists;
 
 function checkSettingsExists() {
   return function(dispatch) {
@@ -19,4 +20,4 @@ function checkSettingsExists() {
   };
 }
 
-export default { setSettingsLoading, checkSettingsExists };
+export default { setSettingsLoading, setSettingsExists, checkSettingsExists };

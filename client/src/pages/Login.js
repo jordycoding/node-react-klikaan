@@ -3,6 +3,9 @@ import Paper from "@material-ui/core/Paper";
 import TextField from "@material-ui/core/TextField";
 import Button from "@material-ui/core/Button";
 import "./login/login.css";
+import { settingsOperations } from "../modules/settings";
+import { roomsOperations } from "../modules/rooms";
+import { connect } from "react-redux";
 class LoginComponent extends Component {
   constructor(props) {
     super(props);
@@ -10,7 +13,6 @@ class LoginComponent extends Component {
     this.handleSubmit = this.handleSubmit.bind(this);
     this.handleEmail = this.handleEmail.bind(this);
     this.handlePin = this.handlePin.bind(this);
-    this.handleTest = this.handleTest.bind(this);
   }
   handleSubmit() {
     let data = {
@@ -28,7 +30,9 @@ class LoginComponent extends Component {
       .then(res => res.text())
       .then(text => {
         if (text === "ok") {
-          this.props.afterSubmit();
+          console.log("ok");
+          this.props.dispatch(roomsOperations.getRooms());
+          this.props.dispatch(settingsOperations.setSettingsExists(true));
         }
       });
   }
@@ -41,9 +45,6 @@ class LoginComponent extends Component {
     this.setState({
       pin: event.target.value
     });
-  }
-  handleTest(event) {
-    console.log(event.target.value);
   }
   render() {
     return (
@@ -79,4 +80,10 @@ class LoginComponent extends Component {
   }
 }
 
-export default LoginComponent;
+function mapStateToProps(state) {
+  return {
+    settingsFileExists: state.settings.settingsExists
+  };
+}
+
+export default connect(mapStateToProps)(LoginComponent);

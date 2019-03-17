@@ -5,6 +5,7 @@ const setRoomsLoading = actions.setRoomsLoading;
 
 function getRooms() {
   return function(dispatch) {
+    dispatch(actions.setRoomsLoading(true));
     return fetch("/getAllRooms")
       .then(res => res.json())
       .then(resJson => {
