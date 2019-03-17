@@ -4,6 +4,7 @@ const setSettingsLoading = actions.setSettingsLoading;
 
 function checkSettingsExists() {
   return function(dispatch) {
+    dispatch(actions.setSettingsLoading(true));
     return fetch("/settingsFileExists")
       .then(res => res.json())
       .then(json => {

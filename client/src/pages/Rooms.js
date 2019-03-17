@@ -5,43 +5,34 @@ import RoomComponent from "./rooms/Room";
 import "./rooms/rooms.css";
 import AppToolbar from "../components/AppToolbar";
 import { connect } from "react-redux";
-import { roomsOperations } from "../modules/rooms/index";
 import { settingsOperations } from "../modules/settings";
-class RoomsComponent extends Component {
-  constructor(props) {
-    super(props);
-  }
-  componentDidMount() {
-    this.props.dispatch(roomsOperations.getRooms());
-  }
-  render() {
-    return (
-      <>
-        <AppToolbar
-          checkSettingsFile={() =>
-            this.props.dispatch(settingsOperations.checkSettingsExists())
-          }
-        />
-        {this.props.isLoading ? (
-          <p>Loading...</p>
-        ) : (
-          <div className="rooms">
-            {this.props.rooms.map(room => {
-              if (room.status === "A") {
-                return (
-                  <Card key={room.id}>
-                    <CardContent>
-                      <RoomComponent room={room} />
-                    </CardContent>
-                  </Card>
-                );
-              }
-            })}
-          </div>
-        )}
-      </>
-    );
-  }
+function RoomsComponent(props) {
+  return (
+    <>
+      <AppToolbar
+        checkSettingsFile={() =>
+          props.dispatch(settingsOperations.checkSettingsExists())
+        }
+      />
+      {props.isLoading ? (
+        <p>Loading...</p>
+      ) : (
+        <div className="rooms">
+          {props.rooms.map(room => {
+            if (room.status === "A") {
+              return (
+                <Card key={room.id}>
+                  <CardContent>
+                    <RoomComponent room={room} />
+                  </CardContent>
+                </Card>
+              );
+            }
+          })}
+        </div>
+      )}
+    </>
+  );
 }
 
 function mapStateToProps(state) {

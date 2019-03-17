@@ -2,7 +2,7 @@ import types from "./types";
 
 const initialState = {
   rooms: [],
-  loading: false
+  loading: true
 };
 
 function roomsReducer(state = initialState, action) {

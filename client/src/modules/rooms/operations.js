@@ -13,6 +13,7 @@ function getRooms() {
           newRoom.allOffToggled = false;
           return room;
         });
+        dispatch(actions.setRoomsLoading(false));
         dispatch(actions.setRooms(rooms));
       });
   };

@@ -2,7 +2,7 @@ import types from "./types";
 
 const initialState = {
   settingsExists: false,
-  settingsLoading: true
+  loading: true
 };
 
 function settingsReducer(state = initialState, action) {
@@ -16,7 +16,7 @@ function settingsReducer(state = initialState, action) {
     case types.SET_SETTINGS_LOADING: {
       return {
         ...state,
-        settingsLoading: action.loading
+        loading: action.loading
       };
     }
     default:

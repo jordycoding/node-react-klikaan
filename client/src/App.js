@@ -4,45 +4,56 @@ import RoomsComponent from "./pages/Rooms";
 import CircularProgress from "@material-ui/core/CircularProgress";
 import { connect } from "react-redux";
 import { settingsOperations } from "./modules/settings";
+import { roomsOperations } from "./modules/rooms";
 
 class App extends Component {
   constructor(props) {
     super(props);
     this.state = {};
-    this.reloadState = this.reloadState.bind(this);
   }
   componentDidMount() {
-    this.props.dispatch(settingsOperations.checkSettingsExists());
+    this.props
+      .dispatch(settingsOperations.checkSettingsExists())
+      .then(() => this.props.dispatch(roomsOperations.getRooms()));
   }
-  reloadState() {
-    this.props.dispatch(settingsOperations.checkSettingsExists());
-  }
-
   render() {
-    switch (this.props.settingsFileExists) {
-      case true:
-        return <RoomsComponent />;
-      case false:
-        return (
-          <LoginComponent
-            afterSubmit={() =>
-              this.props.dispatch(settingsOperations.checkSettingsExists())
-            }
-          />
-        );
-      default:
-        return (
-          <div className="loading">
-            <CircularProgress />
-          </div>
-        );
+    if (
+      this.props.settingsLoading === true ||
+      this.props.roomsLoading === true
+    ) {
+      return (
+        <div className="loading">
+          <CircularProgress />
+        </div>
+      );
+    } else if (
+      this.props.settingsFileExists === false &&
+      this.props.settingsLoading === false
+    ) {
+      return (
+        <LoginComponent
+          afterSubmit={() =>
+            this.props.dispatch(settingsOperations.checkSettingsExists())
+          }
+        />
+      );
+    } else if (
+      this.props.roomsLoading === false &&
+      this.props.settingsFileExists === true
+    ) {
+      return <RoomsComponent />;
+    } else {
+      return <p>Error</p>;
     }
   }
 }
 
 function mapStateToProps(state) {
   return {
-    settingsFileExists: state.settings.settingsExists
+    settingsFileExists: state.settings.settingsExists,
+    settingsLoading: state.settings.loading,
+    roomsLoading: state.rooms.loading,
+    rooms: state.rooms.rooms
   };
 }
 

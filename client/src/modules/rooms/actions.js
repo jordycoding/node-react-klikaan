@@ -9,7 +9,7 @@ function setRooms(rooms) {
 
 function setRoomsLoading(loading) {
   return {
-    type: types.SET_LOADING,
+    type: types.SET_ROOMS_LOADING,
     loading
   };
 }
