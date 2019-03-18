@@ -5,6 +5,8 @@ import Typography from "@material-ui/core/Typography";
 import SettingsIcon from "@material-ui/icons/Settings";
 import IconButton from "@material-ui/core/IconButton";
 import SettingsDialog from "./SettingsDialog";
+import { connect } from "react-redux"
+import { settingsOperations } from "../modules/settings";
 class AppToolbar extends Component {
   constructor(props) {
     super(props);
@@ -46,11 +48,17 @@ class AppToolbar extends Component {
         <SettingsDialog
           open={this.state.dialogOpen}
           close={this.closeSettingsDialog}
-          checkSettingsFile={this.props.checkSettingsFile}
+          checkSettingsFile={() => this.props.dispatch(settingsOperations.checkSettingsExists())}
         />
       </>
     );
   }
 }
 
-export default AppToolbar;
+function mapStateToProps(state){
+  return {
+    settingsFileExists: state.settingsExists
+  }
+}
+
+export default connect(mapStateToProps)(AppToolbar);

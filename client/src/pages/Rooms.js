@@ -1,19 +1,14 @@
-import React, { Component } from "react";
+import React from "react";
 import Card from "@material-ui/core/Card";
 import CardContent from "@material-ui/core/CardContent";
 import RoomComponent from "./rooms/Room";
 import "./rooms/rooms.css";
 import AppToolbar from "../components/AppToolbar";
 import { connect } from "react-redux";
-import { settingsOperations } from "../modules/settings";
 function RoomsComponent(props) {
   return (
     <>
-      <AppToolbar
-        checkSettingsFile={() =>
-          props.dispatch(settingsOperations.checkSettingsExists())
-        }
-      />
+      <AppToolbar />
       {props.isLoading ? (
         <p>Loading...</p>
       ) : (
