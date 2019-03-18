@@ -2,14 +2,13 @@ import React, { Component } from "react";
 import Typography from "@material-ui/core/Typography";
 import DeviceComponent from "./room/Device";
 import Button from "@material-ui/core/Button";
-import { allOff } from "../../utils/api";
 import { roomsOperations } from "../../modules/rooms/index.js";
 import "./room/room.css";
 import { connect } from "react-redux";
 class RoomComponent extends Component {
   constructor(props) {
     super(props);
-    this.setAllOff = this.turnAllOff.bind(this);
+    this.turnAllOff = this.turnAllOff.bind(this);
   }
   turnAllOff() {
     this.props.dispatch(roomsOperations.setRoomAllOff(this.props.room.id));
