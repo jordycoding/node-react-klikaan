@@ -44,6 +44,9 @@ class AppToolbar extends Component {
               <SettingsIcon />
             </IconButton>
           </Toolbar>
+          {
+            this.props.children
+          }
         </AppBar>
         <SettingsDialog
           open={this.state.dialogOpen}

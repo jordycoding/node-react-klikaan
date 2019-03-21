@@ -1,10 +1,10 @@
 import React, { Component } from "react";
 import LoginComponent from "./pages/Login";
-import RoomsComponent from "./pages/Rooms";
 import CircularProgress from "@material-ui/core/CircularProgress";
 import { connect } from "react-redux";
 import { settingsOperations } from "./modules/settings";
 import { roomsOperations } from "./modules/rooms";
+import HomeComponent from "./pages/HomeComponent";
 
 class App extends Component {
   constructor(props) {
@@ -15,8 +15,6 @@ class App extends Component {
     this.props.dispatch(settingsOperations.checkSettingsExists()).then(() => {
       if (this.props.settingsFileExists) {
         this.props.dispatch(roomsOperations.getRooms());
-      } else {
-        return;
       }
     });
   }
@@ -40,7 +38,7 @@ class App extends Component {
       this.props.roomsLoading === false &&
       this.props.settingsFileExists === true
     ) {
-      return <RoomsComponent />;
+      return <HomeComponent />;
     } else {
       return <p>Error</p>;
     }

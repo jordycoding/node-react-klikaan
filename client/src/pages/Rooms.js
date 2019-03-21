@@ -3,12 +3,10 @@ import Card from "@material-ui/core/Card";
 import CardContent from "@material-ui/core/CardContent";
 import RoomComponent from "./rooms/Room";
 import "./rooms/rooms.css";
-import AppToolbar from "../components/AppToolbar";
 import { connect } from "react-redux";
 function RoomsComponent(props) {
   return (
     <>
-      <AppToolbar />
       {props.isLoading ? (
         <p>Loading...</p>
       ) : (
