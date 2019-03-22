@@ -1,7 +1,15 @@
 import React, { useEffect } from "react";
 import { connect } from "react-redux";
 import { sequencesOperations } from "../modules/sequences";
-import { CircularProgress } from "@material-ui/core";
+import {
+  CircularProgress,
+  List,
+  ListItem,
+  ListItemText,
+  ListItemSecondaryAction,
+  IconButton
+} from "@material-ui/core";
+import { Edit } from "@material-ui/icons";
 
 function SequencesComponent(props) {
   useEffect(() => {
@@ -17,11 +25,20 @@ function SequencesComponent(props) {
   } else {
     return (
       <div style={{ display: props.hidden ? "none" : "block" }}>
-        <ul>
-          {props.sequences.map(sequence => (
-            <li>{sequence.title}</li>
-          ))}
-        </ul>
+        <List>
+          {props.sequences.map(sequence => {
+            return (
+              <ListItem button>
+                <ListItemText primary={sequence.title} />
+                <ListItemSecondaryAction>
+                  <IconButton>
+                    <Edit />
+                  </IconButton>
+                </ListItemSecondaryAction>
+              </ListItem>
+            );
+          })}
+        </List>
       </div>
     );
   }
