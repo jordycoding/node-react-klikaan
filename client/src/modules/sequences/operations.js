@@ -12,4 +12,4 @@ function getSequences() {
   };
 }
 
-export default getSequences;
+export default { getSequences };
