@@ -10,12 +10,16 @@ import {
   IconButton
 } from "@material-ui/core";
 import { Edit } from "@material-ui/icons";
+import { startSequence } from "../utils/api";
 
 function SequencesComponent(props) {
   useEffect(() => {
     props.dispatch(sequencesOperations.getSequences());
   }, []);
 
+  function start(id) {
+    startSequence(id);
+  }
   if (props.isLoading || props.sequences.length === 0) {
     return (
       <div style={{ display: props.hidden ? "none" : "block" }}>
@@ -29,7 +33,10 @@ function SequencesComponent(props) {
           {props.sequences.map(sequence => {
             return (
               <ListItem button>
-                <ListItemText primary={sequence.title} />
+                <ListItemText
+                  primary={sequence.title}
+                  onClick={() => start(sequence.title)}
+                />
                 <ListItemSecondaryAction>
                   <IconButton>
                     <Edit />

@@ -46,6 +46,18 @@ function allOff(roomId) {
   });
 }
 
+function startSequence(id){
+  let body = { sequenceId: id}
+  return fetch("/startSequence", {
+    method: "POST",
+    headers: {
+      Accept: "application/json",
+      "Content-Type": "application/json"
+    },
+    body: JSON.stringify(body)
+  });
+}
+
 function removeSettings(callback) {
   fetch("/removeSettings", {
     method: "POST",
@@ -62,4 +74,4 @@ function removeSettings(callback) {
     });
 }
 
-export { turnOn, turnOff, dim, removeSettings, allOff };
+export { turnOn, turnOff, dim, removeSettings, allOff, startSequence };

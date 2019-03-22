@@ -136,4 +136,18 @@ function allOff(roomId) {
   });
 }
 
-module.exports = { saveSettings, turnOn, turnOff, dim, allOff };
+function startSequence(id){
+  let body = new FormData();
+  body.append("action", "I");
+  body.append("username", "JSiPhone");
+  body.append("secret", secret);
+  body.append("name", settings.getMac());
+  body.append("email", settings.getEmail());
+  body.append("commandstring", `!FqP"${id}"|Start scene|${id}`);
+  fetch("https://api.trustsmartcloud.com/writerecord.php?", {
+    method: "POST",
+    body: body
+  });
+}
+
+module.exports = { saveSettings, turnOn, turnOff, dim, allOff, startSequence };

@@ -34,6 +34,10 @@ app.post("/allOff", (req, res) => {
   api.allOff(req.body.roomId);
   res.send("ok");
 });
+app.post("/startSequence", (req, res) => {
+  api.startSequence(req.body.sequenceId);
+  res.send("ok");
+});
 app.post("/removeSettings", (req, res) => {
   settings.removeSettingsFile(() => res.send("removed"));
 });
