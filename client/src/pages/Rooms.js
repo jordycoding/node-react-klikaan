@@ -6,7 +6,7 @@ import "./rooms/rooms.css";
 import { connect } from "react-redux";
 function RoomsComponent(props) {
   return (
-    <>
+    <div style={{ display: props.hidden ? "none" : "block" }}>
       {props.isLoading ? (
         <p>Loading...</p>
       ) : (
@@ -24,7 +24,7 @@ function RoomsComponent(props) {
           })}
         </div>
       )}
-    </>
+    </div>
   );
 }
 

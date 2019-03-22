@@ -22,4 +22,4 @@ function sequencesReducer(state = initialState, action) {
   }
 }
 
-export default sequencesReducer
+export default sequencesReducer;

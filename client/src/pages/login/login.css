@@ -1,25 +1,25 @@
 .login {
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    justify-content: center;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
 }
 
 .loginForm {
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    justify-content: center;
-    margin: 1em;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  margin: 1em;
 }
 
 div.login {
-    height: 100vh;
+  height: 100vh;
 }
 
-form>p {
-    text-transform: capitalize;
-    font-size: 18pt;
-    font-weight: 300;
-    margin: 0.3em;
+form > p {
+  text-transform: capitalize;
+  font-size: 18pt;
+  font-weight: 300;
+  margin: 0.3em;
 }

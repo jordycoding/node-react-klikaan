@@ -5,7 +5,7 @@ import Typography from "@material-ui/core/Typography";
 import SettingsIcon from "@material-ui/icons/Settings";
 import IconButton from "@material-ui/core/IconButton";
 import SettingsDialog from "./SettingsDialog";
-import { connect } from "react-redux"
+import { connect } from "react-redux";
 import { settingsOperations } from "../modules/settings";
 class AppToolbar extends Component {
   constructor(props) {
@@ -44,24 +44,24 @@ class AppToolbar extends Component {
               <SettingsIcon />
             </IconButton>
           </Toolbar>
-          {
-            this.props.children
-          }
+          {this.props.children}
         </AppBar>
         <SettingsDialog
           open={this.state.dialogOpen}
           close={this.closeSettingsDialog}
-          checkSettingsFile={() => this.props.dispatch(settingsOperations.checkSettingsExists())}
+          checkSettingsFile={() =>
+            this.props.dispatch(settingsOperations.checkSettingsExists())
+          }
         />
       </>
     );
   }
 }
 
-function mapStateToProps(state){
+function mapStateToProps(state) {
   return {
     settingsFileExists: state.settingsExists
-  }
+  };
 }
 
 export default connect(mapStateToProps)(AppToolbar);

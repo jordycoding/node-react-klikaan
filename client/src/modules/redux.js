@@ -1,6 +1,6 @@
 import roomsReducer from "./rooms/index";
 import settingsReducer from "./settings/index";
-import sequencesReducer from "./sequences/index"
+import sequencesReducer from "./sequences/index";
 import { combineReducers } from "redux";
 
 const reducer = combineReducers({

@@ -11,18 +11,21 @@ function HomeComponent(props) {
   };
   const AppTabs = (
     <Tabs value={value} onChange={handleChange}>
-      <Tab label="Ruimtes"/>
-      <Tab label="Scenes"/>
+      <Tab label="Ruimtes" />
+      <Tab label="Scenes" />
     </Tabs>
   );
   return (
     <>
-      <AppToolbar children={AppTabs}/>
-      { value === 0 && <RoomsComponent/>}
-      { value === 1 && <SequencesComponent/>}
+      <AppToolbar children={AppTabs} />
+      {
+        <>
+          <RoomsComponent hidden={value === 1} />
+          <SequencesComponent hidden={value === 0} />
+        </>
+      }
     </>
   );
 }
 
 export default HomeComponent;
-

@@ -7,15 +7,22 @@ function SequencesComponent(props) {
   useEffect(() => {
     props.dispatch(sequencesOperations.getSequences());
   }, []);
+
   if (props.isLoading || props.sequences.length === 0) {
-    return <CircularProgress />;
+    return (
+      <div style={{ display: props.hidden ? "none" : "block" }}>
+        <CircularProgress />
+      </div>
+    );
   } else {
     return (
-      <ul>
-        {props.sequences.map(sequence => (
-          <li>{sequence.title}</li>
-        ))}
-      </ul>
+      <div style={{ display: props.hidden ? "none" : "block" }}>
+        <ul>
+          {props.sequences.map(sequence => (
+            <li>{sequence.title}</li>
+          ))}
+        </ul>
+      </div>
     );
   }
 }
