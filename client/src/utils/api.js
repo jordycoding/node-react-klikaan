@@ -46,8 +46,8 @@ function allOff(roomId) {
   });
 }
 
-function startSequence(id){
-  let body = { sequenceId: id}
+function startSequence(id) {
+  let body = { sequenceId: id };
   return fetch("/startSequence", {
     method: "POST",
     headers: {

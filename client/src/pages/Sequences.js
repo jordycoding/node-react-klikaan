@@ -1,4 +1,4 @@
-import React, { useEffect } from "react";
+import React, { useEffect, useState } from "react";
 import { connect } from "react-redux";
 import { sequencesOperations } from "../modules/sequences";
 import {
@@ -11,8 +11,16 @@ import {
 } from "@material-ui/core";
 import { Edit } from "@material-ui/icons";
 import { startSequence } from "../utils/api";
+import EditSequenceDialog from "./sequences/EditSequenceDialog";
 
 function SequencesComponent(props) {
+  const [dialogOpen, setDialogOpen] = useState(false);
+  function handleDialogClose() {
+    setDialogOpen(false);
+  }
+  function handleDialogOpen() {
+    setDialogOpen(true);
+  }
   useEffect(() => {
     props.dispatch(sequencesOperations.getSequences());
   }, []);
@@ -38,7 +46,7 @@ function SequencesComponent(props) {
                   onClick={() => start(sequence.title)}
                 />
                 <ListItemSecondaryAction>
-                  <IconButton>
+                  <IconButton onClick={handleDialogOpen}>
                     <Edit />
                   </IconButton>
                 </ListItemSecondaryAction>
@@ -46,6 +54,7 @@ function SequencesComponent(props) {
             );
           })}
         </List>
+        <EditSequenceDialog open={dialogOpen} handleClose={handleDialogClose} />
       </div>
     );
   }
