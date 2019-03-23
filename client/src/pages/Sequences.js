@@ -2,6 +2,7 @@ import React, { useEffect, useState } from "react";
 import { connect } from "react-redux";
 import { sequencesOperations } from "../modules/sequences";
 import {
+  Button,
   CircularProgress,
   List,
   ListItem,
@@ -12,6 +13,7 @@ import {
 import { Edit } from "@material-ui/icons";
 import { startSequence } from "../utils/api";
 import EditSequenceDialog from "./sequences/EditSequenceDialog";
+import "./sequences/sequences.css"
 
 function SequencesComponent(props) {
   const [dialogOpen, setDialogOpen] = useState(false);
@@ -36,8 +38,10 @@ function SequencesComponent(props) {
     );
   } else {
     return (
-      <div style={{ display: props.hidden ? "none" : "block" }}>
-        <List>
+      <div style={{ display: props.hidden ? "none" : "block" }} className="sequencesContainer">
+        <div className="header"><Button variant="outlined" color="secondary" fullWidth>Stop alle scenes</Button></div>
+
+        <List className="sequencesList">
           {props.sequences.map(sequence => {
             return (
               <ListItem button>
