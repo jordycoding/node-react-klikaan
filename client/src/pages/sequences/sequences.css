@@ -1,10 +1,10 @@
-.sequencesContainer{
-    display: flex;
-    flex-direction: column;
+.sequencesContainer {
+  display: flex;
+  flex-direction: column;
 }
-.header{
-    margin: 0.5em 0.5em 0 0.5em;
+.header {
+  margin: 0.5em 0.5em 0 0.5em;
 }
-.sequencesList{
-    margin: 0;
+.sequencesList {
+  margin: 0;
 }

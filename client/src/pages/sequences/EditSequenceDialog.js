@@ -1,46 +1,71 @@
-import React from "react";
+import React, { Component } from "react";
 import {
+  AppBar,
   Button,
   Dialog,
-  AppBar,
+  IconButton,
+  Slide,
   Toolbar,
   Typography,
   List,
   ListItem,
-  ListItemText,
-  IconButton,
-  Slide
+  ListItemText
 } from "@material-ui/core";
 import { Close } from "@material-ui/icons";
 import "./editSequenceDialog/editSequenceDialog.css";
+import { connect } from "react-redux";
+import commandToString from "../../utils/SequencesUtils";
 
 function Transition(props) {
   return <Slide direction="up" {...props} />;
 }
-function EditSequenceDialog(props) {
-  return (
-    <Dialog
-      fullScreen
-      open={props.open}
-      onClose={props.handleClose}
-      TransitionComponent={Transition}
-    >
-      <AppBar>
-        <Toolbar>
-          <IconButton color="inherit" onClick={props.handleClose}>
-            <Close />
-          </IconButton>
-          <Typography
-            variant="h6"
-            color="inherit"
-            classes={{ root: "titleText" }}
-          >
-            Bewerk scene
-          </Typography>
-          <Button color="inherit">Opslaan</Button>
-        </Toolbar>
-      </AppBar>
-    </Dialog>
-  );
+
+class EditSequenceDialog extends Component {
+  render() {
+    return (
+      <Dialog
+        fullScreen
+        open={this.props.open}
+        onClose={this.props.handleClose}
+        TransitionComponent={Transition}
+      >
+        <AppBar position="static">
+          <Toolbar>
+            <IconButton color="inherit" onClick={this.props.handleClose}>
+              <Close />
+            </IconButton>
+            <Typography
+              variant="h6"
+              color="inherit"
+              classes={{ root: "titleText" }}
+            >
+              Bewerk scene
+            </Typography>
+            <Button color="inherit">Opslaan</Button>
+          </Toolbar>
+        </AppBar>
+        {this.props.open ? (
+          <List>
+            {this.props.sequence.commands.map(command => {
+              return (
+                <ListItem key={command}>
+                  <ListItemText>
+                    {commandToString(command.split(",")[0], this.props.rooms)}
+                    {/*test*/}
+                  </ListItemText>
+                </ListItem>
+              );
+            })}
+          </List>
+        ) : null}
+      </Dialog>
+    );
+  }
 }
-export default EditSequenceDialog;
+
+function mapStateToProps(state) {
+  return {
+    rooms: state.rooms.rooms
+  };
+}
+export default connect(mapStateToProps)(EditSequenceDialog);

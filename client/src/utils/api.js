@@ -58,7 +58,7 @@ function startSequence(id) {
   });
 }
 
-function stopAllSequences(){
+function stopAllSequences() {
   return fetch("/stopAllSequences", {
     method: "POST",
     headers: {
@@ -84,4 +84,12 @@ function removeSettings(callback) {
     });
 }
 
-export { turnOn, turnOff, dim, removeSettings, allOff, startSequence, stopAllSequences };
+export {
+  turnOn,
+  turnOff,
+  dim,
+  removeSettings,
+  allOff,
+  startSequence,
+  stopAllSequences
+};

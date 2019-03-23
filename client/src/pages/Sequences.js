@@ -18,10 +18,12 @@ import "./sequences/sequences.css";
 
 function SequencesComponent(props) {
   const [dialogOpen, setDialogOpen] = useState(false);
+  const [editedSequence, setEditedSequence] = useState({});
   function handleDialogClose() {
     setDialogOpen(false);
   }
-  function handleDialogOpen() {
+  function editSequence(sequence) {
+    setEditedSequence(sequence);
     setDialogOpen(true);
   }
   useEffect(() => {
@@ -57,13 +59,13 @@ function SequencesComponent(props) {
         <List className="sequencesList">
           {props.sequences.map(sequence => {
             return (
-              <ListItem button>
+              <ListItem button key={sequence.title}>
                 <ListItemText
                   primary={sequence.title}
                   onClick={() => start(sequence.title)}
                 />
                 <ListItemSecondaryAction>
-                  <IconButton onClick={handleDialogOpen}>
+                  <IconButton onClick={() => editSequence(sequence)}>
                     <Edit />
                   </IconButton>
                 </ListItemSecondaryAction>
@@ -71,7 +73,11 @@ function SequencesComponent(props) {
             );
           })}
         </List>
-        <EditSequenceDialog open={dialogOpen} handleClose={handleDialogClose} />
+        <EditSequenceDialog
+          open={dialogOpen}
+          handleClose={handleDialogClose}
+          sequence={editedSequence}
+        />
       </div>
     );
   }
