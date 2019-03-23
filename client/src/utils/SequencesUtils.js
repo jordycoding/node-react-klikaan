@@ -29,16 +29,23 @@ function getRoomName(rooms, roomId) {
   return roomName;
 }
 
-// function getDeviceName(roomId, deviceId){
-//   let deviceName = store.getState().rooms.map(room => {
-//     if (room.id === roomId){
-//       return room.devices.filter(device => device.id === deviceId)
-//     }
-//     else {
-//       return room
-//     }
-//   })
-//   return deviceName
-// }
+function getDeviceName(rooms, roomId, deviceId) {
+  let deviceName = "";
+  rooms.map(room => {
+    if (room.id == roomId) {
+      console.log("room match");
+      room.devices.map(device => {
+        if (device.id == deviceId) {
+          deviceName = device.name;
+        } else {
+          return device;
+        }
+      });
+    } else {
+      return room;
+    }
+  });
+  return deviceName;
+}
 
 export default commandToString;
