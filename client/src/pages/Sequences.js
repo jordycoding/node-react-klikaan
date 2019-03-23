@@ -13,7 +13,8 @@ import {
 import { Edit } from "@material-ui/icons";
 import { startSequence } from "../utils/api";
 import EditSequenceDialog from "./sequences/EditSequenceDialog";
-import "./sequences/sequences.css"
+import { stopAllSequences } from "../utils/api";
+import "./sequences/sequences.css";
 
 function SequencesComponent(props) {
   const [dialogOpen, setDialogOpen] = useState(false);
@@ -38,8 +39,20 @@ function SequencesComponent(props) {
     );
   } else {
     return (
-      <div style={{ display: props.hidden ? "none" : "block" }} className="sequencesContainer">
-        <div className="header"><Button variant="outlined" color="secondary" fullWidth>Stop alle scenes</Button></div>
+      <div
+        style={{ display: props.hidden ? "none" : "block" }}
+        className="sequencesContainer"
+      >
+        <div className="header">
+          <Button
+            variant="outlined"
+            color="secondary"
+            fullWidth
+            onClick={() => stopAllSequences()}
+          >
+            Stop alle scenes
+          </Button>
+        </div>
 
         <List className="sequencesList">
           {props.sequences.map(sequence => {

@@ -136,7 +136,7 @@ function allOff(roomId) {
   });
 }
 
-function startSequence(id){
+function startSequence(id) {
   let body = new FormData();
   body.append("action", "I");
   body.append("username", "JSiPhone");
@@ -150,4 +150,25 @@ function startSequence(id){
   });
 }
 
-module.exports = { saveSettings, turnOn, turnOff, dim, allOff, startSequence };
+function stopAllSequences() {
+  let body = new FormData();
+  body.append("action", "I");
+  body.append("username", "JSiPhone");
+  body.append("secret", secret);
+  body.append("name", settings.getMac());
+  body.append("email", settings.getEmail());
+  body.append("commandstring", `!FcP"*"|Alle scenes|Stoppen`);
+  fetch("https://api.trustsmartcloud.com/writerecord.php?", {
+    method: "POST",
+    body: body
+  });
+}
+module.exports = {
+  saveSettings,
+  turnOn,
+  turnOff,
+  dim,
+  allOff,
+  startSequence,
+  stopAllSequences
+};

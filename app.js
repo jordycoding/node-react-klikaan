@@ -38,6 +38,10 @@ app.post("/startSequence", (req, res) => {
   api.startSequence(req.body.sequenceId);
   res.send("ok");
 });
+app.post("/stopAllSequences", (req, res) => {
+  api.stopAllSequences();
+  res.send("ok");
+});
 app.post("/removeSettings", (req, res) => {
   settings.removeSettingsFile(() => res.send("removed"));
 });

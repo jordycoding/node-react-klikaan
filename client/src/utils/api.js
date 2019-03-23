@@ -58,6 +58,16 @@ function startSequence(id) {
   });
 }
 
+function stopAllSequences(){
+  return fetch("/stopAllSequences", {
+    method: "POST",
+    headers: {
+      Accept: "application/json",
+      "Content-Type": "application/json"
+    }
+  });
+}
+
 function removeSettings(callback) {
   fetch("/removeSettings", {
     method: "POST",
@@ -74,4 +84,4 @@ function removeSettings(callback) {
     });
 }
 
-export { turnOn, turnOff, dim, removeSettings, allOff, startSequence };
+export { turnOn, turnOff, dim, removeSettings, allOff, startSequence, stopAllSequences };
