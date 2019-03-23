@@ -14,7 +14,7 @@ import {
 import { Close } from "@material-ui/icons";
 import "./editSequenceDialog/editSequenceDialog.css";
 import { connect } from "react-redux";
-import commandToString from "../../utils/SequencesUtils";
+import commandToString, { getRoomName } from "../../utils/SequencesUtils";
 
 function Transition(props) {
   return <Slide direction="up" {...props} />;
@@ -49,10 +49,13 @@ class EditSequenceDialog extends Component {
             {this.props.sequence.commands.map(command => {
               return (
                 <ListItem key={command}>
-                  <ListItemText>
-                    {commandToString(command.split(",")[0], this.props.rooms)}
-                    {/*test*/}
-                  </ListItemText>
+                  <ListItemText
+                    primary={getRoomName(command.split(",")[0], this.props.rooms)}
+                    secondary={commandToString(
+                      command.split(",")[0],
+                      this.props.rooms
+                    )}
+                  />
                 </ListItem>
               );
             })}
