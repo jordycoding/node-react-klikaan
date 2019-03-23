@@ -15,9 +15,10 @@ function commandToString(command, rooms) {
   }
 }
 
+const DimToString = (dimValue, deviceName) => `Zet ${deviceName} op ${dimValue / 0.01 / 32}`
+const OnOffToString(powerState, deviceName) => `Zet ${deviceName} ${powerState == 1 ? "Aan" : "Uit"}`
+
 function getRoomName(rooms, roomId) {
-  // console.log(roomId)
-  // console.log(rooms )
   let roomName = "";
   rooms.map(room => {
     if (room.id == roomId) {
