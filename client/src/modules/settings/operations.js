@@ -6,7 +6,7 @@ const setSettingsExists = actions.setSettingsExists;
 function checkSettingsExists() {
   return function(dispatch) {
     dispatch(actions.setSettingsLoading(true));
-    return fetch("/settingsFileExists")
+    return fetch("/api/settingsFileExists")
       .then(res => res.json())
       .then(json => {
         if (json === true) {

@@ -6,7 +6,7 @@ const setRoomsLoading = actions.setRoomsLoading;
 function getRooms() {
   return function(dispatch) {
     dispatch(actions.setRoomsLoading(true));
-    return fetch("/getAllRooms")
+    return fetch("/api/getAllRooms")
       .then(res => res.json())
       .then(resJson => {
         let rooms = resJson.map(room => {

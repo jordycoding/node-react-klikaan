@@ -1,6 +1,8 @@
+const baseUrl = "/api";
+
 function turnOn(deviceId, roomId) {
   let body = { deviceId: deviceId, roomId: roomId };
-  fetch("/turnOn", {
+  fetch(baseUrl + "/turnOn", {
     method: "POST",
     headers: {
       Accept: "application/json",
@@ -12,7 +14,7 @@ function turnOn(deviceId, roomId) {
 
 function turnOff(deviceId, roomId) {
   let body = { deviceId: deviceId, roomId: roomId };
-  fetch("/turnOff", {
+  fetch(baseUrl + "/turnOff", {
     method: "POST",
     headers: {
       Accept: "application/json",
@@ -24,7 +26,7 @@ function turnOff(deviceId, roomId) {
 
 function dim(deviceId, roomId, value) {
   let body = { deviceId: deviceId, roomId: roomId, value: value };
-  fetch("/dim", {
+  fetch(baseUrl + "/dim", {
     method: "POST",
     headers: {
       Accept: "application/json",
@@ -36,7 +38,7 @@ function dim(deviceId, roomId, value) {
 
 function allOff(roomId) {
   let body = { roomId: roomId };
-  return fetch("/allOff", {
+  return fetch(baseUrl + "/allOff", {
     method: "POST",
     headers: {
       Accept: "application/json",
@@ -48,7 +50,7 @@ function allOff(roomId) {
 
 function startSequence(id) {
   let body = { sequenceId: id };
-  return fetch("/startSequence", {
+  return fetch(baseUrl + "/startSequence", {
     method: "POST",
     headers: {
       Accept: "application/json",
@@ -59,7 +61,7 @@ function startSequence(id) {
 }
 
 function stopAllSequences() {
-  return fetch("/stopAllSequences", {
+  return fetch(baseUrl + "/stopAllSequences", {
     method: "POST",
     headers: {
       Accept: "application/json",
@@ -69,7 +71,7 @@ function stopAllSequences() {
 }
 
 function removeSettings(callback) {
-  fetch("/removeSettings", {
+  fetch(baseUrl + "/removeSettings", {
     method: "POST",
     headers: {
       Accept: "application/json",
