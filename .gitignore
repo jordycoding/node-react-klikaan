@@ -86,3 +86,5 @@ typings/
 settings.txt
 
 build
+*.tar
+qemu-arm-static
