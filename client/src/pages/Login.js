@@ -19,7 +19,7 @@ class LoginComponent extends Component {
       email: this.state.email,
       pin: this.state.pin
     };
-    fetch("/login", {
+    fetch("/api/login", {
       method: "POST",
       headers: {
         Accept: "application/json",

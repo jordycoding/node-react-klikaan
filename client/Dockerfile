@@ -7,6 +7,6 @@ RUN yarn build
 
 FROM nginx:1.15
 COPY ./nginx.conf /etc/nginx/nginx.conf
-COPY --from=builder /app/build/ /var/www/react_app/
+COPY --from=builder /app/build/ /var/www/
 
 EXPOSE 80
