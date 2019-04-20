@@ -5,6 +5,15 @@ import { connect } from "react-redux";
 import { settingsOperations } from "./modules/settings";
 import { roomsOperations } from "./modules/rooms";
 import HomeComponent from "./pages/HomeComponent";
+import { lightBlue, indigo, teal, green } from "@material-ui/core/colors";
+import { createMuiTheme, MuiThemeProvider } from "@material-ui/core/styles";
+
+const theme = createMuiTheme({
+  palette: {
+    primary: indigo,
+    secondary: lightBlue
+  }
+});
 
 class App extends Component {
   constructor(props) {
@@ -38,7 +47,11 @@ class App extends Component {
       this.props.roomsLoading === false &&
       this.props.settingsFileExists === true
     ) {
-      return <HomeComponent />;
+      return (
+        <MuiThemeProvider theme={theme}>
+          <HomeComponent />
+        </MuiThemeProvider>
+      );
     } else {
       return <p>Error</p>;
     }
