@@ -2,23 +2,13 @@ import React, { Component } from "react";
 import Typography from "@material-ui/core/Typography";
 import Button from "@material-ui/core/Button";
 import Slider from "@material-ui/lab/Slider";
-import {
-  createMuiTheme,
-  MuiThemeProvider,
-  withStyles
-} from "@material-ui/core";
+import { withStyles } from "@material-ui/core";
 import red from "@material-ui/core/colors/red";
 import green from "@material-ui/core/colors/green";
 import "./device/device.css";
 import { turnOn, turnOff, dim } from "../../../utils/api";
 import { debounce } from "lodash";
-
-const theme = createMuiTheme({
-  palette: {
-    primary: green,
-    secondary: red
-  }
-});
+import styled, { css } from "styled-components";
 
 const MarginSlider = withStyles({
   root: {
@@ -26,11 +16,33 @@ const MarginSlider = withStyles({
   }
 })(Slider);
 
-const MarginButton = withStyles({
-  root: {
-    margin: "5px"
+const StyledButton = styled(Button)`
+  && {
+    margin: 5px;
+    box-shadow: 0px 1px 5px 0px rgba(0, 0, 0, 0.2),
+      0px 2px 2px 0px rgba(0, 0, 0, 0.14), 0px 3px 1px -2px rgba(0, 0, 0, 0.12);
+    ${props =>
+      props.on &&
+      css`
+        background: #4caf50;
+        color: black;
+        &: hover {
+          background: #388e3c;
+          color: white;
+        }
+      `}
+
+    ${props =>
+      props.off &&
+      css`
+        background: #f44336;
+        color: white;
+        &:hover {
+          background: #d32f2f;
+        }
+      `}
   }
-})(Button);
+`;
 class DeviceComponent extends Component {
   constructor(props) {
     super(props);
@@ -64,28 +76,16 @@ class DeviceComponent extends Component {
     if (this.props.device.status === "O") {
       return (
         <div className="toggle">
-          <MuiThemeProvider theme={theme}>
-            <Typography component="p" className="text">
-              {this.props.device.name.charAt(0).toUpperCase() +
-                this.props.device.name.slice(1)}
-            </Typography>
-            <MarginButton
-              variant="contained"
-              color="primary"
-              onClick={this.turnOn}
-              size="small"
-            >
-              Aan
-            </MarginButton>
-            <MarginButton
-              variant="contained"
-              color="secondary"
-              onClick={this.turnOff}
-              size="small"
-            >
-              Uit
-            </MarginButton>
-          </MuiThemeProvider>
+          <Typography component="p" className="text">
+            {this.props.device.name.charAt(0).toUpperCase() +
+              this.props.device.name.slice(1)}
+          </Typography>
+          <StyledButton onClick={this.turnOn} on>
+            Aan
+          </StyledButton>
+          <StyledButton onClick={this.turnOff} off>
+            Uit
+          </StyledButton>
         </div>
       );
     } else if (this.props.device.status === "D") {
