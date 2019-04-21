@@ -21,14 +21,13 @@ function editsequenceReducer(state = initialState, action) {
       return {
         ...state,
         sequenceCommands: state.sequenceCommands.filter(
-          command,
-          index => index != action.index
+          (command, index) => index != action.index
         )
       };
     case types.CHANGE_WAIT_TIME:
       return {
         ...state,
-        sequenceCommands: state.sequenceCommands.map(command, index => {
+        sequenceCommands: state.sequenceCommands.map((command, index) => {
           if (index == action.index) {
             return {
               ...command,

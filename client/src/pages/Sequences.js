@@ -15,16 +15,18 @@ import { startSequence } from "../utils/api";
 import EditSequenceDialog from "./sequences/EditSequenceDialog";
 import { stopAllSequences } from "../utils/api";
 import "./sequences/sequences.css";
+import { editsequenceActions } from "../modules/editSequence";
 
 function SequencesComponent(props) {
   const [dialogOpen, setDialogOpen] = useState(false);
-  const [editedSequence, setEditedSequence] = useState({});
+  // const [editedSequence, setEditedSequence] = useState({});
   function handleDialogClose() {
     setDialogOpen(false);
   }
   function editSequence(sequence) {
-    setEditedSequence(sequence);
-    setDialogOpen(true);
+    // setEditedSequence(sequence);
+    props.dispatch(editsequenceActions.setEditedSequenceTitle(sequence.title));
+    // setDialogOpen(true);
   }
   useEffect(() => {
     props.dispatch(sequencesOperations.getSequences());
@@ -76,7 +78,7 @@ function SequencesComponent(props) {
         <EditSequenceDialog
           open={dialogOpen}
           handleClose={handleDialogClose}
-          sequence={editedSequence}
+          // sequence={editedSequence}
         />
       </div>
     );
