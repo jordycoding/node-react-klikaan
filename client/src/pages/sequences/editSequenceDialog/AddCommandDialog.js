@@ -23,6 +23,7 @@ import {
 import Slider from "@material-ui/lab/Slider";
 import { connect } from "react-redux";
 import "./addCommandDialog.css";
+import { editsequenceActions } from "../../../modules/editSequence";
 
 function Transition(props) {
   return <Slide direction="up" {...props} />;
@@ -35,17 +36,20 @@ class AddCommandDialog extends React.Component {
     deviceType: "",
     command: "",
     alloffChecked: false,
-    onChecked: false,
-    offChecked: false,
+    onoff: "",
     dimValue: 0
   };
   devices;
   hanldeRoomSelect = event => {
     event.preventDefault();
-    console.log(event.target.roomid);
     this.setState({
-      ...this.state,
-      roomId: event.target.value
+      roomId: event.target.value,
+      deviceId: "",
+      deviceType: "",
+      command: "",
+      alloffChecked: false,
+      onoff: "",
+      dimValue: 0
     });
     this.devices = this.props.rooms.map(room => {
       let variable;
@@ -83,6 +87,34 @@ class AddCommandDialog extends React.Component {
   };
   handleDimSlider = (event, value) => {
     this.setState({ ...this.state, dimValue: value });
+  };
+  addCommand = () => {
+    if (this.state.alloffChecked === false) {
+      if (this.state.deviceType === "D") {
+        this.props.dispatch(
+          editsequenceActions.addCommandToSequence(
+            `!R${this.state.roomId}D${this.state.deviceId}FdP${Math.round(
+              this.state.dimValue * 0.01 * 32
+            )}`
+          )
+        );
+      }
+      if (this.state.deviceType === "O") {
+        if (this.state.onoff !== "") {
+          this.props.dispatch(
+            editsequenceActions.addCommandToSequence(
+              `!R${this.state.roomId}D${this.state.deviceId}F${
+                this.state.onoff === "off" ? 0 : 1
+              }`
+            )
+          );
+        }
+      }
+    } else {
+      this.props.dispatch(
+        editsequenceActions.addCommandToSequence(`!R${this.state.roomId}Fa`)
+      );
+    }
   };
   render() {
     const { fullScreen } = this.props;
@@ -191,6 +223,9 @@ class AddCommandDialog extends React.Component {
         </DialogContent>
 
         <DialogActions>
+          <Button color="primary" onClick={this.addCommand}>
+            Add
+          </Button>
           <Button color="primary" onClick={this.props.handleClose}>
             Cancel
           </Button>
