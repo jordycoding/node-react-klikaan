@@ -9,18 +9,30 @@ import {
   Typography,
   List,
   ListItem,
-  ListItemText
+  ListItemText,
+  Fab
 } from "@material-ui/core";
-import { Close } from "@material-ui/icons";
+import { Close, Add } from "@material-ui/icons";
 import "./editSequenceDialog/editSequenceDialog.css";
 import { connect } from "react-redux";
 import commandToString, { getRoomName } from "../../utils/SequencesUtils";
+import AddCommandDialog from "./editSequenceDialog/AddCommandDialog";
 
 function Transition(props) {
   return <Slide direction="up" {...props} />;
 }
 
 class EditSequenceDialog extends Component {
+  state = {
+    addCommandDialogOpen: false
+  };
+
+  toggleDialog = () => {
+    this.setState({
+      addCommandDialogOpen: !this.state.addCommandDialogOpen
+    });
+  };
+
   render() {
     return (
       <Dialog
@@ -64,6 +76,23 @@ class EditSequenceDialog extends Component {
             })}
           </List>
         ) : null}
+        <Fab
+          color="primary"
+          style={{
+            position: "absolute",
+            bottom: "20px",
+            right: "20px"
+          }}
+          onClick={() => {
+            this.setState({ addCommandDialogOpen: true });
+          }}
+        >
+          <Add />
+        </Fab>
+        <AddCommandDialog
+          open={this.state.addCommandDialogOpen}
+          handleClose={this.toggleDialog}
+        />
       </Dialog>
     );
   }
