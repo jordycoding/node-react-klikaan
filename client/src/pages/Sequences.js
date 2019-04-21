@@ -19,13 +19,14 @@ import { editsequenceActions } from "../modules/editSequence";
 
 function SequencesComponent(props) {
   const [dialogOpen, setDialogOpen] = useState(false);
-  // const [editedSequence, setEditedSequence] = useState({});
   function handleDialogClose() {
     setDialogOpen(false);
   }
   function editSequence(sequence) {
-    // setEditedSequence(sequence);
     props.dispatch(editsequenceActions.setEditedSequenceTitle(sequence.title));
+    props.dispatch(
+      editsequenceActions.setEditedSequenceCommands(sequence.commands)
+    );
     // setDialogOpen(true);
   }
   useEffect(() => {

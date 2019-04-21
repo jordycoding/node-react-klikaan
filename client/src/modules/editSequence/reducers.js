@@ -29,10 +29,7 @@ function editsequenceReducer(state = initialState, action) {
         ...state,
         sequenceCommands: state.sequenceCommands.map((command, index) => {
           if (index == action.index) {
-            return {
-              ...command,
-              waitTime: action.time
-            };
+            return `${command.split(",")[0]},${action.time}`;
           }
         })
       };
