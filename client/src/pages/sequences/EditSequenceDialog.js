@@ -50,7 +50,10 @@ class EditSequenceDialog extends Component {
               return (
                 <ListItem key={command}>
                   <ListItemText
-                    primary={getRoomName(command.split(",")[0], this.props.rooms)}
+                    primary={getRoomName(
+                      command.split(",")[0],
+                      this.props.rooms
+                    )}
                     secondary={commandToString(
                       command.split(",")[0],
                       this.props.rooms
