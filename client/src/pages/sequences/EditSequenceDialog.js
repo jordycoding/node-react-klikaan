@@ -46,7 +46,7 @@ class EditSequenceDialog extends Component {
         </AppBar>
         {this.props.open ? (
           <List>
-            {this.props.sequence.commands.map(command => {
+            {this.props.sequenceCommands.map(command => {
               return (
                 <ListItem key={command}>
                   <ListItemText
@@ -71,7 +71,9 @@ class EditSequenceDialog extends Component {
 
 function mapStateToProps(state) {
   return {
-    rooms: state.rooms.rooms
+    rooms: state.rooms.rooms,
+    sequenceTitle: state.editedSequence.sequenceTitle,
+    sequenceCommands: state.editedSequence.sequenceCommands
   };
 }
 export default connect(mapStateToProps)(EditSequenceDialog);

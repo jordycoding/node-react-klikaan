@@ -24,7 +24,7 @@ function commandToString(command, rooms) {
       )
     );
   } else if (AllOffCommand.test(command) === true) {
-    return AllOffToString(getRoomName(rooms, command.match(AllOffCommand)[1]));
+    return AllOffToString(getRoomName(command, rooms));
   }
 }
 
@@ -41,7 +41,7 @@ function getRoomName(command, rooms) {
     roomId = command.match(OnOffCommand)[1];
   } else if (DimCommand.test(command) === true) {
     roomId = command.match(DimCommand)[1];
-  } else if (AllOffCommand.test(command)) {
+  } else if (AllOffCommand.test(command) === true) {
     roomId = command.match(AllOffCommand)[1];
   }
   rooms.map(room => {

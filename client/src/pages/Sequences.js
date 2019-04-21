@@ -22,12 +22,14 @@ function SequencesComponent(props) {
   function handleDialogClose() {
     setDialogOpen(false);
   }
-  function editSequence(sequence) {
-    props.dispatch(editsequenceActions.setEditedSequenceTitle(sequence.title));
-    props.dispatch(
+  async function editSequence(sequence) {
+    await props.dispatch(
+      editsequenceActions.setEditedSequenceTitle(sequence.title)
+    );
+    await props.dispatch(
       editsequenceActions.setEditedSequenceCommands(sequence.commands)
     );
-    // setDialogOpen(true);
+    setDialogOpen(true);
   }
   useEffect(() => {
     props.dispatch(sequencesOperations.getSequences());
@@ -76,11 +78,7 @@ function SequencesComponent(props) {
             );
           })}
         </List>
-        <EditSequenceDialog
-          open={dialogOpen}
-          handleClose={handleDialogClose}
-          // sequence={editedSequence}
-        />
+        <EditSequenceDialog open={dialogOpen} handleClose={handleDialogClose} />
       </div>
     );
   }
