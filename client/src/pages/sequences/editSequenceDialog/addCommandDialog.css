@@ -1,0 +1,23 @@
+div.formcontrol {
+    display: flex;
+    flex-direction: column;
+}
+
+.container {
+    display: flex;
+    flex-direction: row;
+}
+
+/* div.container>* {
+    margin: 10px
+} */
+
+div.row {
+    display: flex;
+    flex-direction: column;
+}
+
+div.column {
+    display: flex;
+    flex-direction: row;
+}
