@@ -70,6 +70,18 @@ function stopAllSequences() {
   });
 }
 
+function removeSequence(name) {
+  let body = { sequenceName: name };
+  return fetch(baseUrl + "/removeSequence", {
+    method: "POST",
+    headers: {
+      Accept: "application/json",
+      "Content-Type": "application/json"
+    },
+    body: JSON.stringify(body)
+  });
+}
+
 function removeSettings(callback) {
   fetch(baseUrl + "/removeSettings", {
     method: "POST",
@@ -86,6 +98,16 @@ function removeSettings(callback) {
     });
 }
 
+function saveSettingsToServer() {
+  fetch(baseUrl + "/saveSettingsToServer", {
+    method: "POST",
+    headers: {
+      Accept: "application/json",
+      "Content-Type": "application/json"
+    }
+  });
+}
+
 export {
   turnOn,
   turnOff,
@@ -93,5 +115,7 @@ export {
   removeSettings,
   allOff,
   startSequence,
-  stopAllSequences
+  stopAllSequences,
+  saveSettingsToServer,
+  removeSequence
 };

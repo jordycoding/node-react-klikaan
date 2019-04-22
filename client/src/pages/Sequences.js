@@ -10,10 +10,10 @@ import {
   ListItemSecondaryAction,
   IconButton
 } from "@material-ui/core";
-import { Edit } from "@material-ui/icons";
+import { Edit, Delete } from "@material-ui/icons";
 import { startSequence } from "../utils/api";
 import EditSequenceDialog from "./sequences/EditSequenceDialog";
-import { stopAllSequences } from "../utils/api";
+import { stopAllSequences, removeSequence } from "../utils/api";
 import "./sequences/sequences.css";
 import { editsequenceActions } from "../modules/editSequence";
 
@@ -70,6 +70,14 @@ function SequencesComponent(props) {
                   onClick={() => start(sequence.title)}
                 />
                 <ListItemSecondaryAction>
+                  <IconButton
+                    onClick={() => {
+                      removeSequence(sequence.title);
+                      props.dispatch(sequencesOperations.getSequences());
+                    }}
+                  >
+                    <Delete />
+                  </IconButton>
                   <IconButton onClick={() => editSequence(sequence)}>
                     <Edit />
                   </IconButton>

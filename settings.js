@@ -30,6 +30,11 @@ function getMac() {
   return mac;
 }
 
+function getPin() {
+  let pin = JSON.parse(fs.readFileSync("settings.txt")).pin;
+  return pin;
+}
+
 function removeSettingsFile(callback) {
   fs.unlink("settings.txt", () => callback());
 }
@@ -40,5 +45,6 @@ module.exports = {
   getAllSequences,
   getEmail,
   getMac,
+  getPin,
   removeSettingsFile
 };

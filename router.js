@@ -46,5 +46,13 @@ router.post("/editSequence", (req, res) => {
     .editSequence(req.body.sequenceTitle, req.body.sequenceCommands)
     .then(response => res.sendStatus(response.status));
 });
+router.post("/removeSequence", (req, res) => {
+  api
+    .removeSequence(req.body.sequenceName)
+    .then(response => res.sendStatus(response.status));
+});
+router.post("/saveSettingsToServer", (req, res) => {
+  api.saveSettingsToServer();
+});
 
 module.exports = router;

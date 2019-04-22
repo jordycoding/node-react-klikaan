@@ -10,7 +10,7 @@ import ListItemText from "@material-ui/core/ListItemText";
 import Divider from "@material-ui/core/Divider";
 import IconButton from "@material-ui/core/IconButton";
 import CloseIcon from "@material-ui/icons/Close";
-import { removeSettings } from "../utils/api";
+import { removeSettings, saveSettingsToServer } from "../utils/api";
 
 function Transition(props) {
   return <Slide direction="up" {...props} />;
@@ -49,6 +49,13 @@ class SettingsDialog extends Component {
             <ListItemText
               primary="Remove settings"
               onClick={() => this.deleteSettings()}
+            />
+          </ListItem>
+          <Divider />
+          <ListItem button>
+            <ListItemText
+              primary="Save settings to server"
+              onClick={() => saveSettingsToServer()}
             />
           </ListItem>
           <Divider />

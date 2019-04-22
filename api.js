@@ -165,6 +165,15 @@ function stopAllSequences() {
 }
 
 function editSequence(title, commands) {
+  let settingsFileEdited = JSON.parse(fs.readFileSync("settings.txt"));
+  settingsFileEdited.sequences.map(sequence => {
+    if (sequence.title === title) {
+      sequence.commands = commands;
+    }
+  });
+  fs.writeFileSync("settings.txt", JSON.stringify(settingsFileEdited), err => {
+    if (err) throw err;
+  });
   let body = new FormData();
   body.append("action", "I");
   body.append("username", "JSiPhone");
@@ -177,6 +186,53 @@ function editSequence(title, commands) {
     body: body
   });
 }
+
+async function removeSequence(name) {
+  let settingsFileEdited = JSON.parse(fs.readFileSync("settings.txt"));
+  let sequencesEdited = settingsFileEdited.sequences.filter(
+    sequence => sequence.title !== name
+  );
+  settingsFileEdited.sequences = sequencesEdited;
+  fs.writeFileSync("settings.txt", JSON.stringify(settingsFileEdited), err => {
+    if (err) throw err;
+  });
+  let body = new FormData();
+  body.append("action", "I");
+  body.append("username", "JSiPhone");
+  body.append("secret", secret);
+  body.append("name", settings.getMac());
+  body.append("email", settings.getEmail());
+  body.append("commandstring", `!FxP"${name}"`);
+  return fetch("https://api.trustsmartcloud.com/writerecord.php?", {
+    method: "POST",
+    body: body
+  });
+}
+async function saveSettingsToServer() {
+  let body = {};
+  await fetch(
+    `http://api.trustsmartcloud.com/getsettingsxml.php?action=D&email=${settings.getEmail()}&pin=${settings.getPin()}`
+  )
+    .then(res => res.text())
+    .then(body => plist.parse(body))
+    .then(parsed => (body = parsed));
+  let allSequences = settings.getAllSequences();
+  let parsedSequences = allSequences.map(sequence => {
+    let title = sequence.title;
+    let commands = sequence.commands;
+    return [title, ...commands];
+  });
+  body.sequences = parsedSequences;
+  let editedPlist = plist.build(body);
+  let requestBody = new FormData();
+  requestBody.append("email", settings.getEmail());
+  requestBody.append("pin", settings.getPin());
+  requestBody.append("settings", editedPlist.toString());
+  await fetch("http://api.trustsmartcloud.com/manager/saveuserdata.php", {
+    method: "POST",
+    body: requestBody
+  });
+}
 module.exports = {
   saveSettings,
   turnOn,
@@ -185,5 +241,7 @@ module.exports = {
   allOff,
   startSequence,
   stopAllSequences,
-  editSequence
+  editSequence,
+  removeSequence,
+  saveSettingsToServer
 };

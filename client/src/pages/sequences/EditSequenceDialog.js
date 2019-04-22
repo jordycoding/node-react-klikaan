@@ -17,6 +17,7 @@ import "./editSequenceDialog/editSequenceDialog.css";
 import { connect } from "react-redux";
 import commandToString, { getRoomName } from "../../utils/SequencesUtils";
 import AddCommandDialog from "./editSequenceDialog/AddCommandDialog";
+import { sequencesOperations } from "../../modules/sequences";
 
 function Transition(props) {
   return <Slide direction="up" {...props} />;
@@ -52,6 +53,7 @@ class EditSequenceDialog extends Component {
         alert("There was an error please try again");
       }
     });
+    this.props.dispatch(sequencesOperations.getSequences());
   };
   render() {
     return (
