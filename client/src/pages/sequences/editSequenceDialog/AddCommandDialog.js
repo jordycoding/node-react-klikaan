@@ -18,7 +18,8 @@ import {
   Checkbox,
   Radio,
   RadioGroup,
-  Typography
+  Typography,
+  TextField
 } from "@material-ui/core";
 import Slider from "@material-ui/lab/Slider";
 import { connect } from "react-redux";
@@ -37,7 +38,8 @@ class AddCommandDialog extends React.Component {
     command: "",
     alloffChecked: false,
     onoff: "",
-    dimValue: 0
+    dimValue: 0,
+    waitTime: ""
   };
   devices;
   hanldeRoomSelect = event => {
@@ -88,32 +90,49 @@ class AddCommandDialog extends React.Component {
   handleDimSlider = (event, value) => {
     this.setState({ ...this.state, dimValue: value });
   };
-  addCommand = () => {
-    if (this.state.alloffChecked === false) {
+  handleWaitChange = event => {
+    this.setState({ waitTime: event.target.value });
+  };
+  addCommand = async () => {
+    let waitTime =
+      this.state.waitTime === "" ? "00:00:00" : this.state.waitTime;
+    if (
+      this.state.alloffChecked === false &&
+      this.state.roomId !== "" &&
+      this.state.deviceId !== ""
+    ) {
       if (this.state.deviceType === "D") {
-        this.props.dispatch(
+        await this.props.dispatch(
           editsequenceActions.addCommandToSequence(
             `!R${this.state.roomId}D${this.state.deviceId}FdP${Math.round(
               this.state.dimValue * 0.01 * 32
-            )}`
+            )},${waitTime}`
           )
         );
+        this.props.handleClose();
       }
       if (this.state.deviceType === "O") {
         if (this.state.onoff !== "") {
-          this.props.dispatch(
+          await this.props.dispatch(
             editsequenceActions.addCommandToSequence(
               `!R${this.state.roomId}D${this.state.deviceId}F${
                 this.state.onoff === "off" ? 0 : 1
-              }`
+              },${waitTime}`
             )
           );
+          this.props.handleClose();
         }
       }
-    } else {
-      this.props.dispatch(
-        editsequenceActions.addCommandToSequence(`!R${this.state.roomId}Fa`)
+    } else if (this.state.alloffChecked === true) {
+      await this.props.dispatch(
+        editsequenceActions.addCommandToSequence(
+          `!R${this.state.roomId}Fa,${waitTime}`
+        )
       );
+      this.props.handleClose();
+    } else {
+      console.log("Not a valid command");
+      alert("Please insert a valid command");
     }
   };
   render() {
@@ -219,6 +238,17 @@ class AddCommandDialog extends React.Component {
               }}
               step={1}
             />
+            <TextField
+              onChange={this.handleWaitChange}
+              placeholder="Waiting time in HH:MM:SS"
+              fullWidth
+              style={{ "margin-top": "10px" }}
+              error={
+                !/([0-9][0-9]):(60|0[0-9]|[0-5][0-9]):(60|0[0-9]|[0-5][0-9])/.test(
+                  this.state.waitTime
+                )
+              }
+            />
           </form>
         </DialogContent>
 
@@ -237,7 +267,9 @@ class AddCommandDialog extends React.Component {
 
 function mapStateToProps(state) {
   return {
-    rooms: state.rooms.rooms
+    rooms: state.rooms.rooms,
+    sequenceTitle: state.editedSequence.sequenceTitle,
+    sequenceCommands: state.editedSequence.sequenceCommands
   };
 }
 export default connect(mapStateToProps)(withMobileDialog()(AddCommandDialog));

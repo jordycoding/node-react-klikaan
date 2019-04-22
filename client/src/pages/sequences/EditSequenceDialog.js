@@ -33,6 +33,26 @@ class EditSequenceDialog extends Component {
     });
   };
 
+  saveSequence = async () => {
+    let body = {
+      sequenceTitle: this.props.sequenceTitle,
+      sequenceCommands: this.props.sequenceCommands
+    };
+    fetch("/api/editSequence", {
+      method: "POST",
+      headers: {
+        Accept: "application/json",
+        "Content-Type": "application/json"
+      },
+      body: JSON.stringify(body)
+    }).then(res => {
+      if (res.status === 200) {
+        this.props.handleClose();
+      } else {
+        alert("There was an error please try again");
+      }
+    });
+  };
   render() {
     return (
       <Dialog
@@ -53,7 +73,9 @@ class EditSequenceDialog extends Component {
             >
               Bewerk scene
             </Typography>
-            <Button color="inherit">Opslaan</Button>
+            <Button color="inherit" onClick={this.saveSequence}>
+              Opslaan
+            </Button>
           </Toolbar>
         </AppBar>
         {this.props.open ? (

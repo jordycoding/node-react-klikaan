@@ -163,6 +163,20 @@ function stopAllSequences() {
     body: body
   });
 }
+
+function editSequence(title, commands) {
+  let body = new FormData();
+  body.append("action", "I");
+  body.append("username", "JSiPhone");
+  body.append("secret", secret);
+  body.append("name", settings.getMac());
+  body.append("email", settings.getEmail());
+  body.append("commandstring", `!FeP"${title}"=${commands}|Scene|Opslaan`);
+  return fetch("https://api.trustsmartcloud.com/writerecord.php?", {
+    method: "POST",
+    body: body
+  });
+}
 module.exports = {
   saveSettings,
   turnOn,
@@ -170,5 +184,6 @@ module.exports = {
   dim,
   allOff,
   startSequence,
-  stopAllSequences
+  stopAllSequences,
+  editSequence
 };

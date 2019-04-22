@@ -41,5 +41,10 @@ router.post("/stopAllSequences", (req, res) => {
 router.post("/removeSettings", (req, res) => {
   settings.removeSettingsFile(() => res.send("removed"));
 });
+router.post("/editSequence", (req, res) => {
+  api
+    .editSequence(req.body.sequenceTitle, req.body.sequenceCommands)
+    .then(response => res.sendStatus(response.status));
+});
 
 module.exports = router;
