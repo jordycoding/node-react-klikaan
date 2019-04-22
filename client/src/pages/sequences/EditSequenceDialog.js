@@ -18,6 +18,7 @@ import { connect } from "react-redux";
 import commandToString, { getRoomName } from "../../utils/SequencesUtils";
 import AddCommandDialog from "./editSequenceDialog/AddCommandDialog";
 import { sequencesOperations } from "../../modules/sequences";
+import { withSnackbar } from "notistack";
 
 function Transition(props) {
   return <Slide direction="up" {...props} />;
@@ -46,13 +47,22 @@ class EditSequenceDialog extends Component {
         "Content-Type": "application/json"
       },
       body: JSON.stringify(body)
-    }).then(res => {
-      if (res.status === 200) {
-        this.props.handleClose();
-      } else {
-        alert("There was an error please try again");
-      }
-    });
+    })
+      .then(res => {
+        if (res.status === 200) {
+          this.props.enqueueSnackbar("Sequence saved", { variant: "success" });
+          this.props.handleClose();
+        } else {
+          this.props.enqueueSnackbar("There was an error", {
+            variant: "error"
+          });
+        }
+      })
+      .catch(err =>
+        this.props.enqueueSnackbar("There was a server error", {
+          variant: "error"
+        })
+      );
     this.props.dispatch(sequencesOperations.getSequences());
   };
   render() {
@@ -129,4 +139,4 @@ function mapStateToProps(state) {
     sequenceCommands: state.editedSequence.sequenceCommands
   };
 }
-export default connect(mapStateToProps)(EditSequenceDialog);
+export default withSnackbar(connect(mapStateToProps)(EditSequenceDialog));

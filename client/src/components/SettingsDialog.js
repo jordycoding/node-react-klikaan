@@ -11,6 +11,7 @@ import Divider from "@material-ui/core/Divider";
 import IconButton from "@material-ui/core/IconButton";
 import CloseIcon from "@material-ui/icons/Close";
 import { removeSettings, saveSettingsToServer } from "../utils/api";
+import { withSnackbar } from "notistack";
 
 function Transition(props) {
   return <Slide direction="up" {...props} />;
@@ -47,7 +48,7 @@ class SettingsDialog extends Component {
         <List>
           <ListItem button>
             <ListItemText
-              primary="Remove settings"
+              primary="Refresh settings"
               onClick={() => this.deleteSettings()}
             />
           </ListItem>
@@ -55,7 +56,26 @@ class SettingsDialog extends Component {
           <ListItem button>
             <ListItemText
               primary="Save settings to server"
-              onClick={() => saveSettingsToServer()}
+              onClick={() => {
+                saveSettingsToServer()
+                  .then(res => {
+                    if (res.status === 200) {
+                      this.props.enqueueSnackbar("Settings saved to server", {
+                        variant: "success"
+                      });
+                    } else {
+                      this.props.enqueueSnackbar(
+                        "There was an error saving the settings",
+                        { variant: "error" }
+                      );
+                    }
+                  })
+                  .catch(err =>
+                    this.props.enqueueSnackbar("There was a server error", {
+                      variant: "error"
+                    })
+                  );
+              }}
             />
           </ListItem>
           <Divider />
@@ -65,4 +85,4 @@ class SettingsDialog extends Component {
   }
 }
 
-export default SettingsDialog;
+export default withSnackbar(SettingsDialog);

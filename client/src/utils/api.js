@@ -99,7 +99,7 @@ function removeSettings(callback) {
 }
 
 function saveSettingsToServer() {
-  fetch(baseUrl + "/saveSettingsToServer", {
+  return fetch(baseUrl + "/saveSettingsToServer", {
     method: "POST",
     headers: {
       Accept: "application/json",

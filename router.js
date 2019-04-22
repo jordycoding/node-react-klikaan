@@ -53,6 +53,7 @@ router.post("/removeSequence", (req, res) => {
 });
 router.post("/saveSettingsToServer", (req, res) => {
   api.saveSettingsToServer();
+  res.sendStatus(200);
 });
 
 module.exports = router;

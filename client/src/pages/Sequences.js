@@ -16,6 +16,7 @@ import EditSequenceDialog from "./sequences/EditSequenceDialog";
 import { stopAllSequences, removeSequence } from "../utils/api";
 import "./sequences/sequences.css";
 import { editsequenceActions } from "../modules/editSequence";
+import { withSnackbar } from "notistack";
 
 function SequencesComponent(props) {
   const [dialogOpen, setDialogOpen] = useState(false);
@@ -72,7 +73,24 @@ function SequencesComponent(props) {
                 <ListItemSecondaryAction>
                   <IconButton
                     onClick={() => {
-                      removeSequence(sequence.title);
+                      removeSequence(sequence.title)
+                        .then(res => {
+                          if (res.status === 200) {
+                            props.enqueueSnackbar("Sequence removed", {
+                              variant: "success"
+                            });
+                          } else {
+                            props.enqueueSnackbar(
+                              "There was an error removing the sequence",
+                              { variant: "error" }
+                            );
+                          }
+                        })
+                        .catch(err =>
+                          props.enqueueSnackbar("There was a server error", {
+                            variant: "error"
+                          })
+                        );
                       props.dispatch(sequencesOperations.getSequences());
                     }}
                   >
@@ -99,4 +117,4 @@ function mapStateToProps(state) {
   };
 }
 
-export default connect(mapStateToProps)(SequencesComponent);
+export default withSnackbar(connect(mapStateToProps)(SequencesComponent));

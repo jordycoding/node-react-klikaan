@@ -232,6 +232,7 @@ async function saveSettingsToServer() {
     method: "POST",
     body: requestBody
   });
+  return;
 }
 module.exports = {
   saveSettings,
