@@ -11,16 +11,17 @@ import {
   ListItem,
   ListItemText,
   ListItemSecondaryAction,
-  Fab,
+  Fab
 } from "@material-ui/core";
-import { Close, Add, Delete,  Timer} from "@material-ui/icons";
+import { Close, Add, Delete, Timer } from "@material-ui/icons";
 import "./editSequenceDialog/editSequenceDialog.css";
 import { connect } from "react-redux";
 import commandToString, { getRoomName } from "../../utils/SequencesUtils";
 import AddCommandDialog from "./editSequenceDialog/AddCommandDialog";
 import { sequencesOperations } from "../../modules/sequences";
-import { editsequenceActions} from "../../modules/editSequence";
+import { editsequenceActions } from "../../modules/editSequence";
 import { withSnackbar } from "notistack";
+import ChangeWaitTimeDialog from "./editSequenceDialog/ChangeWaitTimeDialog";
 
 function Transition(props) {
   return <Slide direction="up" {...props} />;
@@ -28,12 +29,20 @@ function Transition(props) {
 
 class EditSequenceDialog extends Component {
   state = {
-    addCommandDialogOpen: false
+    addCommandDialogOpen: false,
+    delayChangeIndex: "",
+    delayDialogOpen: false
   };
 
   removeCommand = event => {
-    this.props.dispatch(this.props.dispatch(editsequenceActions.removeCommandFromSequence(event.nativeEvent.target.getAttribute("index"))))
-  }
+    this.props.dispatch(
+      this.props.dispatch(
+        editsequenceActions.removeCommandFromSequence(
+          event.nativeEvent.target.getAttribute("index")
+        )
+      )
+    );
+  };
 
   toggleDialog = () => {
     this.setState({
@@ -41,6 +50,19 @@ class EditSequenceDialog extends Component {
     });
   };
 
+  handleDelayChange = index => {
+    this.setState({
+      delayChangeIndex: index,
+      delayDialogOpen: true
+    });
+  };
+
+  closeDelayDialog = () => {
+    this.setState({
+      delayChangeIndex: "",
+      delayDialogOpen: false
+    });
+  };
   saveSequence = async () => {
     let body = {
       sequenceTitle: this.props.sequenceTitle,
@@ -102,20 +124,23 @@ class EditSequenceDialog extends Component {
               return (
                 <ListItem key={command}>
                   <ListItemText
-                    primary={getRoomName(
+                    primary={commandToString(
                       command.split(",")[0],
                       this.props.rooms
                     )}
-                    secondary={commandToString(
-                      command.split(",")[0],
-                      this.props.rooms
-                    )}
+
+                    secondary={`Wait ${command.split(",")[1]}`}
                   />
                   <ListItemSecondaryAction>
-                    <IconButton >
+                    <IconButton
+                      onClick={() => this.handleDelayChange(index)}
+                    >
                       <Timer />
                     </IconButton>
-                    <IconButton index={index} onClick={() => this.removeCommand}>
+                    <IconButton
+                      index={index}
+                      onClick={this.removeCommand}
+                    >
                       <Delete />
                     </IconButton>
                   </ListItemSecondaryAction>
@@ -140,6 +165,11 @@ class EditSequenceDialog extends Component {
         <AddCommandDialog
           open={this.state.addCommandDialogOpen}
           handleClose={this.toggleDialog}
+        />
+        <ChangeWaitTimeDialog
+          open={this.state.delayDialogOpen}
+          handleClose={this.closeDelayDialog}
+          index={this.state.delayChangeIndex}
         />
       </Dialog>
     );

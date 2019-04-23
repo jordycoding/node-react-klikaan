@@ -28,8 +28,11 @@ function editsequenceReducer(state = initialState, action) {
       return {
         ...state,
         sequenceCommands: state.sequenceCommands.map((command, index) => {
+          console.log(action)
           if (index == action.index) {
-            return `${command.split(",")[0]},${action.time}`;
+            return  `${command.split(",")[0]},${action.time}`;
+          } else {
+            return command
           }
         })
       };

@@ -246,7 +246,7 @@ class AddCommandDialog extends React.Component {
               fullWidth
               style={{ "margin-top": "10px" }}
               error={
-                !/([0-9][0-9]):(60|0[0-9]|[0-5][0-9]):(60|0[0-9]|[0-5][0-9])/.test(
+                !/([0-9][0-9]):(60|0[0-9]|[0-5][0-9]):(60|0[0-9]|[0-5][0-9]$)/.test(
                   this.state.waitTime
                 )
               }

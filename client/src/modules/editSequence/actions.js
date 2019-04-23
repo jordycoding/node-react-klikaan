@@ -23,8 +23,9 @@ function removeCommandFromSequence(index) {
 
 function changeWaitTime(time, index) {
   return {
-    type: types.REMOVE_COMMAND_FROM_SEQUENCE,
-    time
+    type: types.CHANGE_WAIT_TIME,
+    time,
+    index
   };
 }
 
