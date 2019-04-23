@@ -18,11 +18,17 @@ import { stopAllSequences, removeSequence } from "../utils/api";
 import "./sequences/sequences.css";
 import { editsequenceActions } from "../modules/editSequence";
 import { withSnackbar } from "notistack";
+import ConfirmDeleteDialog from "./sequences/ConfirmDeleteDialog";
 
 function SequencesComponent(props) {
   const [dialogOpen, setDialogOpen] = useState(false);
+  const [confirmDeleteDialogOpen, setConfirmDeleteDialogOpen] = useState(false);
+  const [confirmDeleteDialogName, setConfirmDeleteDialogName] = useState("");
   function handleDialogClose() {
     setDialogOpen(false);
+  }
+  function closeConfirmDeleteDialog() {
+    setConfirmDeleteDialogOpen(false);
   }
   async function editSequence(sequence) {
     await props.dispatch(
@@ -74,25 +80,8 @@ function SequencesComponent(props) {
                 <ListItemSecondaryAction>
                   <IconButton
                     onClick={() => {
-                      removeSequence(sequence.title)
-                        .then(res => {
-                          if (res.status === 200) {
-                            props.enqueueSnackbar("Sequence removed", {
-                              variant: "success"
-                            });
-                          } else {
-                            props.enqueueSnackbar(
-                              "There was an error removing the sequence",
-                              { variant: "error" }
-                            );
-                          }
-                        })
-                        .catch(err =>
-                          props.enqueueSnackbar("There was a server error", {
-                            variant: "error"
-                          })
-                        );
-                      props.dispatch(sequencesOperations.getSequences());
+                      setConfirmDeleteDialogOpen(true);
+                      setConfirmDeleteDialogName(sequence.title);
                     }}
                   >
                     <Delete />
@@ -116,6 +105,33 @@ function SequencesComponent(props) {
           <Add />
         </Fab>
         <EditSequenceDialog open={dialogOpen} handleClose={handleDialogClose} />
+        <ConfirmDeleteDialog
+          open={confirmDeleteDialogOpen}
+          sequenceName={confirmDeleteDialogName}
+          handleClose={closeConfirmDeleteDialog}
+          confirmDelete={() => {
+            removeSequence(confirmDeleteDialogName)
+              .then(res => {
+                if (res.status === 200) {
+                  props.enqueueSnackbar("Sequence removed", {
+                    variant: "success"
+                  });
+                  props.dispatch(sequencesOperations.getSequences());
+                } else {
+                  props.enqueueSnackbar(
+                    "There was an error removing the sequence",
+                    { variant: "error" }
+                  );
+                }
+              })
+              .catch(err =>
+                props.enqueueSnackbar("There was a server error", {
+                  variant: "error"
+                })
+              );
+            closeConfirmDeleteDialog();
+          }}
+        />
       </div>
     );
   }

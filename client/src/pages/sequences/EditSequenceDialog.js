@@ -34,14 +34,8 @@ class EditSequenceDialog extends Component {
     delayDialogOpen: false
   };
 
-  removeCommand = event => {
-    this.props.dispatch(
-      this.props.dispatch(
-        editsequenceActions.removeCommandFromSequence(
-          event.nativeEvent.target.getAttribute("index")
-        )
-      )
-    );
+  removeCommand = index => {
+    this.props.dispatch(editsequenceActions.removeCommandFromSequence(index));
   };
 
   toggleDialog = () => {
@@ -128,19 +122,13 @@ class EditSequenceDialog extends Component {
                       command.split(",")[0],
                       this.props.rooms
                     )}
-
                     secondary={`Wait ${command.split(",")[1]}`}
                   />
                   <ListItemSecondaryAction>
-                    <IconButton
-                      onClick={() => this.handleDelayChange(index)}
-                    >
+                    <IconButton onClick={() => this.handleDelayChange(index)}>
                       <Timer />
                     </IconButton>
-                    <IconButton
-                      index={index}
-                      onClick={this.removeCommand}
-                    >
+                    <IconButton onClick={() => this.removeCommand(index)}>
                       <Delete />
                     </IconButton>
                   </ListItemSecondaryAction>
