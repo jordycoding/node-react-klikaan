@@ -6,20 +6,22 @@ import {
   DialogActions,
   DialogContent,
   DialogContentText,
-  DialogTitle
+  DialogTitle,
+  Slide
 } from "@material-ui/core";
 import { connect } from "react-redux";
 import { editsequenceActions } from "../../../modules/editSequence";
 import { withSnackbar } from "notistack";
 
+function Transition(props) {
+  return <Slide direction="up" {...props} />;
+}
 class ChangeWaitTimeDialog extends Component {
   state = {
     delay: ""
   };
   handleDelayChange = event => {
-
     this.setState({ delay: event.target.value });
-
   };
   handleChange = async event => {
     if (this.state.delay !== "") {
@@ -34,7 +36,11 @@ class ChangeWaitTimeDialog extends Component {
   };
   render() {
     return (
-      <Dialog open={this.props.open} onClose={this.handleClose}>
+      <Dialog
+        open={this.props.open}
+        onClose={this.handleClose}
+        TransitionComponent={Transition}
+      >
         <DialogTitle>Change delay</DialogTitle>
         <DialogContent>
           <DialogContentText>
