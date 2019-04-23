@@ -105,7 +105,7 @@ class EditSequenceDialog extends Component {
               color="inherit"
               classes={{ root: "titleText" }}
             >
-              Bewerk scene
+              Bewerk scene {this.props.sequenceTitle}
             </Typography>
             <Button color="inherit" onClick={this.saveSequence}>
               Opslaan
