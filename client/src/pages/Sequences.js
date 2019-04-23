@@ -8,9 +8,10 @@ import {
   ListItem,
   ListItemText,
   ListItemSecondaryAction,
-  IconButton
+  IconButton,
+  Fab
 } from "@material-ui/core";
-import { Edit, Delete } from "@material-ui/icons";
+import { Edit, Delete, Add } from "@material-ui/icons";
 import { startSequence } from "../utils/api";
 import EditSequenceDialog from "./sequences/EditSequenceDialog";
 import { stopAllSequences, removeSequence } from "../utils/api";
@@ -104,6 +105,16 @@ function SequencesComponent(props) {
             );
           })}
         </List>
+        <Fab
+          color="primary"
+          style={{
+            position: "fixed",
+            bottom: "20px",
+            right: "20px"
+          }}
+        >
+          <Add />
+        </Fab>
         <EditSequenceDialog open={dialogOpen} handleClose={handleDialogClose} />
       </div>
     );

@@ -113,7 +113,7 @@ class EditSequenceDialog extends Component {
         <Fab
           color="primary"
           style={{
-            position: "absolute",
+            position: "fixed",
             bottom: "20px",
             right: "20px"
           }}

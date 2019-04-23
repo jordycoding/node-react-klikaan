@@ -25,6 +25,7 @@ import Slider from "@material-ui/lab/Slider";
 import { connect } from "react-redux";
 import "./addCommandDialog.css";
 import { editsequenceActions } from "../../../modules/editSequence";
+import { withSnackbar } from "notistack";
 
 function Transition(props) {
   return <Slide direction="up" {...props} />;
@@ -131,8 +132,9 @@ class AddCommandDialog extends React.Component {
       );
       this.props.handleClose();
     } else {
-      console.log("Not a valid command");
-      alert("Please insert a valid command");
+      this.props.enqueueSnackbar("Please insert a valid command", {
+        variant: "error"
+      });
     }
   };
   render() {
@@ -272,4 +274,6 @@ function mapStateToProps(state) {
     sequenceCommands: state.editedSequence.sequenceCommands
   };
 }
-export default connect(mapStateToProps)(withMobileDialog()(AddCommandDialog));
+export default withSnackbar(
+  connect(mapStateToProps)(withMobileDialog()(AddCommandDialog))
+);
