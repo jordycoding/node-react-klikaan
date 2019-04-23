@@ -10,14 +10,16 @@ import {
   List,
   ListItem,
   ListItemText,
-  Fab
+  ListItemSecondaryAction,
+  Fab,
 } from "@material-ui/core";
-import { Close, Add } from "@material-ui/icons";
+import { Close, Add, Delete,  Timer} from "@material-ui/icons";
 import "./editSequenceDialog/editSequenceDialog.css";
 import { connect } from "react-redux";
 import commandToString, { getRoomName } from "../../utils/SequencesUtils";
 import AddCommandDialog from "./editSequenceDialog/AddCommandDialog";
 import { sequencesOperations } from "../../modules/sequences";
+import { editsequenceActions} from "../../modules/editSequence";
 import { withSnackbar } from "notistack";
 
 function Transition(props) {
@@ -28,6 +30,10 @@ class EditSequenceDialog extends Component {
   state = {
     addCommandDialogOpen: false
   };
+
+  removeCommand = event => {
+    this.props.dispatch(this.props.dispatch(editsequenceActions.removeCommandFromSequence(event.nativeEvent.target.getAttribute("index"))))
+  }
 
   toggleDialog = () => {
     this.setState({
@@ -92,7 +98,7 @@ class EditSequenceDialog extends Component {
         </AppBar>
         {this.props.open ? (
           <List>
-            {this.props.sequenceCommands.map(command => {
+            {this.props.sequenceCommands.map((command, index) => {
               return (
                 <ListItem key={command}>
                   <ListItemText
@@ -105,6 +111,14 @@ class EditSequenceDialog extends Component {
                       this.props.rooms
                     )}
                   />
+                  <ListItemSecondaryAction>
+                    <IconButton >
+                      <Timer />
+                    </IconButton>
+                    <IconButton index={index} onClick={() => this.removeCommand}>
+                      <Delete />
+                    </IconButton>
+                  </ListItemSecondaryAction>
                 </ListItem>
               );
             })}
