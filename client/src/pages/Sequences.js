@@ -19,13 +19,13 @@ import "./sequences/sequences.css";
 import { editsequenceActions } from "../modules/editSequence";
 import { withSnackbar } from "notistack";
 import ConfirmDeleteDialog from "./sequences/ConfirmDeleteDialog";
-import AddSequenceDialog from "./sequences/AddSequenceDialog"
+import AddSequenceDialog from "./sequences/AddSequenceDialog";
 
 function SequencesComponent(props) {
   const [editDialogOpen, setEditDialogOpen] = useState(false);
   const [confirmDeleteDialogOpen, setConfirmDeleteDialogOpen] = useState(false);
   const [confirmDeleteDialogName, setConfirmDeleteDialogName] = useState("");
-  const [addDialogOpen, setAddDialogOpen] = useState(false)
+  const [addDialogOpen, setAddDialogOpen] = useState(false);
   function handleDialogClose() {
     setEditDialogOpen(false);
   }
@@ -103,13 +103,14 @@ function SequencesComponent(props) {
             bottom: "20px",
             right: "20px"
           }}
-          onClick={
-            () => setAddDialogOpen(true)
-          }
+          onClick={() => setAddDialogOpen(true)}
         >
           <Add />
         </Fab>
-        <EditSequenceDialog open={editDialogOpen} handleClose={handleDialogClose} />
+        <EditSequenceDialog
+          open={editDialogOpen}
+          handleClose={handleDialogClose}
+        />
         <ConfirmDeleteDialog
           open={confirmDeleteDialogOpen}
           sequenceName={confirmDeleteDialogName}
@@ -137,7 +138,10 @@ function SequencesComponent(props) {
             closeConfirmDeleteDialog();
           }}
         />
-        <AddSequenceDialog open={addDialogOpen} handleClose={() => setAddDialogOpen(false)}/>
+        <AddSequenceDialog
+          open={addDialogOpen}
+          handleClose={() => setAddDialogOpen(false)}
+        />
       </div>
     );
   }

@@ -90,15 +90,14 @@ class EditSequenceDialog extends Component {
 
   addCommandToSequence = async command => {
     await this.props.dispatch(
-      editsequenceActions.addCommandToSequence(command))
-    this.toggleDialog()
-  }
+      editsequenceActions.addCommandToSequence(command)
+    );
+    this.toggleDialog();
+  };
 
   changeDelay = async (delay, index) => {
-    await this.props.dispatch(
-        editsequenceActions.changeWaitTime(delay, index)
-    );
-  }
+    await this.props.dispatch(editsequenceActions.changeWaitTime(delay, index));
+  };
   render() {
     return (
       <Dialog
