@@ -32,6 +32,12 @@ function AddSequenceDialog(props) {
     setCommands([...commands, command]);
     setAddCommandDialogOpen(false);
   };
+  const removeCommand = commandIndex => {
+    let newCommands = commands.filter(
+      (command, index) => index != commandIndex
+    );
+    setCommands(newCommands);
+  };
   return (
     <Dialog
       fullScreen
@@ -65,6 +71,11 @@ function AddSequenceDialog(props) {
                   primary={commandToString(command.split(",")[0], props.rooms)}
                   secondary={`Wait ${command.split(",")[1]}`}
                 />
+                <ListItemSecondaryAction>
+                  <IconButton onClick={() => removeCommand(index)}>
+                    <Delete />
+                  </IconButton>
+                </ListItemSecondaryAction>
               </ListItem>
             );
           })}
