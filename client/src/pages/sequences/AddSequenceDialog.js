@@ -20,6 +20,9 @@ import { connect } from "react-redux";
 import commandToString from "../../utils/SequencesUtils";
 import AddCommandDialog from "../../components/AddCommandDialog";
 import ChangeWaitTimeDialog from "../../components/ChangeWaitTimeDialog";
+import { addSequence } from "../../utils/api";
+import { withSnackbar } from "notistack";
+import { sequencesOperations } from "../../modules/sequences";
 
 function Transition(props) {
   return <Slide direction="up" {...props} />;
@@ -54,6 +57,37 @@ function AddSequenceDialog(props) {
   const handleNameChange = event => {
     setName(event.target.value);
   };
+  const saveSequence = () => {
+    if (name !== "" && commands.length !== 0) {
+      console.log("Saving ");
+      addSequence(name, commands)
+        .then(res => {
+          if (res.status === 200) {
+            props.enqueueSnackbar("Sequence saved", { variant: "success" });
+          } else {
+            props.enqueueSnackbar("There was an error saving the sequence", {
+              variant: "error"
+            });
+          }
+          props.dispatch(sequencesOperations.getSequences());
+          props.handleClose();
+        })
+        .catch(
+          err => props.enqueueSnackbar("There was an error on the server"),
+          { variant: "error" }
+        );
+    } else if (name === "" && commands.length !== 0) {
+      props.enqueueSnackbar("Please insert a name", { variant: "error" });
+    } else if (name !== "" && commands.length === 0) {
+      props.enqueueSnackbar("Please add at least one command", {
+        variant: "error"
+      });
+    } else {
+      props.enqueueSnackbar("Please add a name and commands", {
+        variant: "error"
+      });
+    }
+  };
   return (
     <Dialog
       fullScreen
@@ -75,7 +109,9 @@ function AddSequenceDialog(props) {
           >
             Nieuwe scene
           </Typography>
-          <Button color="inherit">Opslaan</Button>
+          <Button color="inherit" onClick={saveSequence}>
+            Opslaan
+          </Button>
         </Toolbar>
       </AppBar>
       <TextField
@@ -144,4 +180,4 @@ const mapStateToProps = state => {
   };
 };
 
-export default connect(mapStateToProps)(AddSequenceDialog);
+export default withSnackbar(connect(mapStateToProps)(AddSequenceDialog));

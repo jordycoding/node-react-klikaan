@@ -34,6 +34,11 @@ router.post("/startSequence", (req, res) => {
   api.startSequence(req.body.sequenceId);
   res.send("ok");
 });
+router.post("/addSequence", (req, res) => {
+  api
+    .addSequence(req.body.title, req.body.commands)
+    .then(response => res.sendStatus(response.status));
+});
 router.post("/stopAllSequences", (req, res) => {
   api.stopAllSequences();
   res.send("ok");

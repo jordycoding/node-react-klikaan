@@ -150,6 +150,28 @@ function startSequence(id) {
   });
 }
 
+function addSequence(title, commands) {
+  let settingsFileEdited = JSON.parse(fs.readFileSync("settings.txt"));
+  settingsFileEdited.sequences.push({
+    title: title,
+    commands: commands
+  });
+  fs.writeFileSync("settings.txt", JSON.stringify(settingsFileEdited), err => {
+    if (err) throw err;
+  });
+  let body = new FormData();
+  body.append("action", "I");
+  body.append("username", "JSiPhone");
+  body.append("secret", secret);
+  body.append("name", settings.getMac());
+  body.append("email", settings.getEmail());
+  body.append("commandstring", `!FeP"${title}"=${commands}|Scene|Opslaan`);
+  return fetch("https://api.trustsmartcloud.com/writerecord.php?", {
+    method: "POST",
+    body: body
+  });
+}
+
 function stopAllSequences() {
   let body = new FormData();
   body.append("action", "I");
@@ -244,5 +266,6 @@ module.exports = {
   stopAllSequences,
   editSequence,
   removeSequence,
-  saveSettingsToServer
+  saveSettingsToServer,
+  addSequence
 };

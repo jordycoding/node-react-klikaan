@@ -60,6 +60,22 @@ function startSequence(id) {
   });
 }
 
+function addSequence(title, commands) {
+  let body = {
+    title: title,
+    commands: commands
+  };
+  console.log(body);
+  return fetch(baseUrl + "/addSequence", {
+    method: "POST",
+    headers: {
+      Accept: "application/json",
+      "Content-Type": "application/json"
+    },
+    body: JSON.stringify(body)
+  });
+}
+
 function stopAllSequences() {
   return fetch(baseUrl + "/stopAllSequences", {
     method: "POST",
@@ -117,5 +133,6 @@ export {
   startSequence,
   stopAllSequences,
   saveSettingsToServer,
-  removeSequence
+  removeSequence,
+  addSequence
 };
