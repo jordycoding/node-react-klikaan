@@ -21,10 +21,10 @@ import {
   Typography,
   TextField
 } from "@material-ui/core";
-import Slider from "@material-ui/lab/Slider";
+import Slider from "@material-ui/lab/Slider/index";
 import { connect } from "react-redux";
 import "./addCommandDialog.css";
-import { editsequenceActions } from "../../../modules/editSequence";
+import { editsequenceActions } from "../modules/editSequence";
 import { withSnackbar } from "notistack";
 
 function Transition(props) {
@@ -103,34 +103,45 @@ class AddCommandDialog extends React.Component {
       this.state.deviceId !== ""
     ) {
       if (this.state.deviceType === "D") {
-        await this.props.dispatch(
-          editsequenceActions.addCommandToSequence(
-            `!R${this.state.roomId}D${this.state.deviceId}FdP${Math.round(
-              this.state.dimValue * 0.01 * 32
-            )},${waitTime}`
-          )
+        // await this.props.dispatch(
+        //   editsequenceActions.addCommandToSequence(
+        //     `!R${this.state.roomId}D${this.state.deviceId}FdP${Math.round(
+        //       this.state.dimValue * 0.01 * 32
+        //     )},${waitTime}`
+        //   )
+        // );
+        // this.props.handleClose();
+        this.props.addCommandFunction(
+          `!R${this.state.roomId}D${this.state.deviceId}FdP${Math.round(
+            this.state.dimValue * 0.01 * 32
+          )},${waitTime}`
         );
-        this.props.handleClose();
       }
       if (this.state.deviceType === "O") {
         if (this.state.onoff !== "") {
-          await this.props.dispatch(
-            editsequenceActions.addCommandToSequence(
-              `!R${this.state.roomId}D${this.state.deviceId}F${
-                this.state.onoff === "off" ? 0 : 1
-              },${waitTime}`
-            )
+          // await this.props.dispatch(
+          //   editsequenceActions.addCommandToSequence(
+          //     `!R${this.state.roomId}D${this.state.deviceId}F${
+          //       this.state.onoff === "off" ? 0 : 1
+          //     },${waitTime}`
+          //   )
+          // );
+          // this.props.handleClose();
+          this.props.addCommandFunction(
+            `!R${this.state.roomId}D${this.state.deviceId}F${
+              this.state.onoff === "off" ? 0 : 1
+            },${waitTime}`
           );
-          this.props.handleClose();
         }
       }
     } else if (this.state.alloffChecked === true) {
-      await this.props.dispatch(
-        editsequenceActions.addCommandToSequence(
-          `!R${this.state.roomId}Fa,${waitTime}`
-        )
-      );
-      this.props.handleClose();
+      // await this.props.dispatch(
+      //   editsequenceActions.addCommandToSequence(
+      //     `!R${this.state.roomId}Fa,${waitTime}`
+      //   )
+      // );
+      // this.props.handleClose();
+      this.props.addCommandFunction(`!R${this.state.roomId}Fa,${waitTime}`);
     } else {
       this.props.enqueueSnackbar("Please insert a valid command", {
         variant: "error"

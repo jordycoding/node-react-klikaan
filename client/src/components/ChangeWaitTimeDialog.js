@@ -10,7 +10,7 @@ import {
   Slide
 } from "@material-ui/core";
 import { connect } from "react-redux";
-import { editsequenceActions } from "../../../modules/editSequence";
+import { editsequenceActions } from "../modules/editSequence";
 import { withSnackbar } from "notistack";
 
 function Transition(props) {
@@ -25,9 +25,7 @@ class ChangeWaitTimeDialog extends Component {
   };
   handleChange = async event => {
     if (this.state.delay !== "") {
-      await this.props.dispatch(
-        editsequenceActions.changeWaitTime(this.state.delay, this.props.index)
-      );
+      await this.props.changeDelayFunction(this.state.delay, this.props.index)
       this.props.enqueueSnackbar("Delay changed", { variant: "success" });
       this.props.handleClose();
     } else {

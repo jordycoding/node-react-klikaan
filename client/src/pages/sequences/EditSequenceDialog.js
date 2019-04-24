@@ -14,14 +14,14 @@ import {
   Fab
 } from "@material-ui/core";
 import { Close, Add, Delete, Timer } from "@material-ui/icons";
-import "./editSequenceDialog/editSequenceDialog.css";
+import "../../components/editSequenceDialog.css";
 import { connect } from "react-redux";
 import commandToString, { getRoomName } from "../../utils/SequencesUtils";
-import AddCommandDialog from "./editSequenceDialog/AddCommandDialog";
+import AddCommandDialog from "../../components/AddCommandDialog";
 import { sequencesOperations } from "../../modules/sequences";
 import { editsequenceActions } from "../../modules/editSequence";
 import { withSnackbar } from "notistack";
-import ChangeWaitTimeDialog from "./editSequenceDialog/ChangeWaitTimeDialog";
+import ChangeWaitTimeDialog from "../../components/ChangeWaitTimeDialog";
 
 function Transition(props) {
   return <Slide direction="up" {...props} />;
@@ -87,6 +87,18 @@ class EditSequenceDialog extends Component {
       );
     this.props.dispatch(sequencesOperations.getSequences());
   };
+
+  addCommandToSequence = async command => {
+    await this.props.dispatch(
+      editsequenceActions.addCommandToSequence(command))
+    this.toggleDialog()
+  }
+
+  changeDelay = async (delay, index) => {
+    await this.props.dispatch(
+        editsequenceActions.changeWaitTime(delay, index)
+    );
+  }
   render() {
     return (
       <Dialog
@@ -153,11 +165,13 @@ class EditSequenceDialog extends Component {
         <AddCommandDialog
           open={this.state.addCommandDialogOpen}
           handleClose={this.toggleDialog}
+          addCommandFunction={this.addCommandToSequence}
         />
         <ChangeWaitTimeDialog
           open={this.state.delayDialogOpen}
           handleClose={this.closeDelayDialog}
           index={this.state.delayChangeIndex}
+          changeDelayFunction={this.changeDelay}
         />
       </Dialog>
     );
