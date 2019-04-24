@@ -11,7 +11,8 @@ import {
   ListItem,
   ListItemText,
   ListItemSecondaryAction,
-  Fab
+  Fab,
+  TextField
 } from "@material-ui/core";
 import { Close, Add, Delete, Timer } from "@material-ui/icons";
 import "./addSequenceDialog/addSequenceDialog.css";
@@ -28,6 +29,8 @@ function AddSequenceDialog(props) {
   const [commands, setCommands] = useState([]);
   const [addCommandDialogOpen, setAddCommandDialogOpen] = useState(false);
   const [changeDelayDialogOpen, setChangeDelayDialogOpen] = useState(false);
+  const [changeDelayIndex, setChangeDelayIndex] = useState("");
+  const [name, setName] = useState("");
   const addCommand = command => {
     setCommands([...commands, command]);
     setAddCommandDialogOpen(false);
@@ -37,6 +40,19 @@ function AddSequenceDialog(props) {
       (command, index) => index != commandIndex
     );
     setCommands(newCommands);
+  };
+  const changeWaitTime = async (delay, commandIndex) => {
+    let newCommands = commands.map((command, index) => {
+      if (index == commandIndex) {
+        return `${command.split(",")[0]},${delay}`;
+      } else {
+        return command;
+      }
+    });
+    setCommands(newCommands);
+  };
+  const handleNameChange = event => {
+    setName(event.target.value);
   };
   return (
     <Dialog
@@ -62,6 +78,13 @@ function AddSequenceDialog(props) {
           <Button color="inherit">Opslaan</Button>
         </Toolbar>
       </AppBar>
+      <TextField
+        placeholder="Name"
+        onChange={handleNameChange}
+        style={{
+          margin: "5px"
+        }}
+      />
       {props.open ? (
         <List>
           {commands.map((command, index) => {
@@ -72,6 +95,14 @@ function AddSequenceDialog(props) {
                   secondary={`Wait ${command.split(",")[1]}`}
                 />
                 <ListItemSecondaryAction>
+                  <IconButton
+                    onClick={() => {
+                      setChangeDelayIndex(index);
+                      setChangeDelayDialogOpen(true);
+                    }}
+                  >
+                    <Timer />
+                  </IconButton>
                   <IconButton onClick={() => removeCommand(index)}>
                     <Delete />
                   </IconButton>
@@ -97,10 +128,12 @@ function AddSequenceDialog(props) {
       >
         <Add />
       </Fab>
-      {/*<ChangeWaitTimeDialog*/}
-      {/*  open={changeDelayDialogOpen}*/}
-      {/*  handleClose={() => setChangeDelayDialogOpen(false)}*/}
-      {/*/>*/}
+      <ChangeWaitTimeDialog
+        open={changeDelayDialogOpen}
+        handleClose={() => setChangeDelayDialogOpen(false)}
+        index={changeDelayIndex}
+        changeDelayFunction={changeWaitTime}
+      />
     </Dialog>
   );
 }

@@ -29,11 +29,11 @@ class ConfirmDeleteDialog extends Component {
           </DialogContentText>
         </DialogContent>
         <DialogActions>
-          <Button onClick={this.props.confirmDelete} color="primary">
-            Yes
-          </Button>
           <Button onClick={this.props.handleClose} color="primary">
             No
+          </Button>
+          <Button onClick={this.props.confirmDelete} color="primary" autofocus>
+            Yes
           </Button>
         </DialogActions>
       </Dialog>
