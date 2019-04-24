@@ -14,7 +14,7 @@ import {
   Fab
 } from "@material-ui/core";
 import { Close, Add, Delete, Timer } from "@material-ui/icons";
-import "../../components/editSequenceDialog.css";
+import "./editSequenceDialog/editSequenceDialog.css";
 import { connect } from "react-redux";
 import commandToString, { getRoomName } from "../../utils/SequencesUtils";
 import AddCommandDialog from "../../components/AddCommandDialog";

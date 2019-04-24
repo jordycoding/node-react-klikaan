@@ -43,7 +43,7 @@ class AddCommandDialog extends React.Component {
     waitTime: ""
   };
   devices;
-  hanldeRoomSelect = event => {
+  handleRoomSelect = event => {
     event.preventDefault();
     this.setState({
       roomId: event.target.value,
@@ -103,14 +103,6 @@ class AddCommandDialog extends React.Component {
       this.state.deviceId !== ""
     ) {
       if (this.state.deviceType === "D") {
-        // await this.props.dispatch(
-        //   editsequenceActions.addCommandToSequence(
-        //     `!R${this.state.roomId}D${this.state.deviceId}FdP${Math.round(
-        //       this.state.dimValue * 0.01 * 32
-        //     )},${waitTime}`
-        //   )
-        // );
-        // this.props.handleClose();
         this.props.addCommandFunction(
           `!R${this.state.roomId}D${this.state.deviceId}FdP${Math.round(
             this.state.dimValue * 0.01 * 32
@@ -119,14 +111,6 @@ class AddCommandDialog extends React.Component {
       }
       if (this.state.deviceType === "O") {
         if (this.state.onoff !== "") {
-          // await this.props.dispatch(
-          //   editsequenceActions.addCommandToSequence(
-          //     `!R${this.state.roomId}D${this.state.deviceId}F${
-          //       this.state.onoff === "off" ? 0 : 1
-          //     },${waitTime}`
-          //   )
-          // );
-          // this.props.handleClose();
           this.props.addCommandFunction(
             `!R${this.state.roomId}D${this.state.deviceId}F${
               this.state.onoff === "off" ? 0 : 1
@@ -135,12 +119,6 @@ class AddCommandDialog extends React.Component {
         }
       }
     } else if (this.state.alloffChecked === true) {
-      // await this.props.dispatch(
-      //   editsequenceActions.addCommandToSequence(
-      //     `!R${this.state.roomId}Fa,${waitTime}`
-      //   )
-      // );
-      // this.props.handleClose();
       this.props.addCommandFunction(`!R${this.state.roomId}Fa,${waitTime}`);
     } else {
       this.props.enqueueSnackbar("Please insert a valid command", {
@@ -171,7 +149,7 @@ class AddCommandDialog extends React.Component {
               <Select
                 value={this.state.roomId}
                 inputProps={{ name: "room", id: "room" }}
-                onChange={this.hanldeRoomSelect}
+                onChange={this.handleRoomSelect}
                 autoWidth
               >
                 {this.props.rooms.map(room => {
