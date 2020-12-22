@@ -21,7 +21,7 @@ import {
   Typography,
   TextField
 } from "@material-ui/core";
-import Slider from "@material-ui/lab/Slider/index";
+import Slider from "@material-ui/core/Slider";
 import { connect } from "react-redux";
 import "./addCommandDialog.css";
 import { editsequenceActions } from "../modules/editSequence";
