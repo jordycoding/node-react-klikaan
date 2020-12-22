@@ -4,11 +4,11 @@ import CircularProgress from "@material-ui/core/CircularProgress";
 import {settingsOperations} from "./modules/settings";
 import {roomsOperations} from "./modules/rooms";
 import HomeComponent from "./pages/HomeComponent";
-import {lightBlue, indigo, teal, green} from "@material-ui/core/colors";
+import {lightBlue, indigo, teal, green, pink} from "@material-ui/core/colors";
 import {createMuiTheme, MuiThemeProvider} from "@material-ui/core/styles";
 import {useSelector, useDispatch} from "react-redux";
 import useMediaQuery from "@material-ui/core/useMediaQuery";
-
+import {CssBaseline} from "@material-ui/core";
 
 
 function App(props) {
@@ -19,6 +19,18 @@ function App(props) {
             createMuiTheme({
                 palette: {
                     type: prefersDarkMode ? 'dark' : 'light',
+                    primary: {
+                        light: '#6ec6ff',
+                        dark: '#0069c0',
+                        main: '#2196f3',
+                        contrastText: '#000000'
+                    },
+                    secondary: {
+                        light: '#ffe97d',
+                        dark: '#c88719',
+                        main: '#ffb74d',
+                        contrastText: '#000000'
+                    }
                 },
             }),
         [prefersDarkMode],
@@ -48,15 +60,23 @@ function App(props) {
         (selector.roomsLoading === true && selector.settingsLoading === true)
     ) {
         return (
-            <div className="loading">
-                <CircularProgress/>
-            </div>
+            <MuiThemeProvider theme={theme}>
+                <CssBaseline/>
+                <div className="loading">
+                    <CircularProgress/>
+                </div>
+            </MuiThemeProvider>
         );
     } else if (
         selector.settingsFileExists === false &&
         selector.settingsLoading === false
     ) {
-        return <LoginComponent/>;
+        return (
+            <MuiThemeProvider theme={theme}>
+                <CssBaseline/>
+                <LoginComponent/>
+            </MuiThemeProvider>
+        );
     } else if (
         selector.roomsLoading === false &&
         selector.settingsFileExists === true
