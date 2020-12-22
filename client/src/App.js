@@ -1,71 +1,75 @@
-import React, { Component } from "react";
+import React, {Component} from "react";
 import LoginComponent from "./pages/Login";
 import CircularProgress from "@material-ui/core/CircularProgress";
-import { connect } from "react-redux";
-import { settingsOperations } from "./modules/settings";
-import { roomsOperations } from "./modules/rooms";
+import {settingsOperations} from "./modules/settings";
+import {roomsOperations} from "./modules/rooms";
 import HomeComponent from "./pages/HomeComponent";
-import { lightBlue, indigo, teal, green } from "@material-ui/core/colors";
-import { createMuiTheme, MuiThemeProvider } from "@material-ui/core/styles";
+import {lightBlue, indigo, teal, green} from "@material-ui/core/colors";
+import {createMuiTheme, MuiThemeProvider} from "@material-ui/core/styles";
+import {useSelector, useDispatch} from "react-redux";
+import useMediaQuery from "@material-ui/core/useMediaQuery";
 
-const theme = createMuiTheme({
-  palette: {
-    type: 'dark',
-    primary: indigo,
-    secondary: lightBlue
-  }
-});
 
-class App extends Component {
-  constructor(props) {
-    super(props);
-    this.state = {};
-  }
-  componentDidMount() {
-    this.props.dispatch(settingsOperations.checkSettingsExists()).then(() => {
-      if (this.props.settingsFileExists) {
-        this.props.dispatch(roomsOperations.getRooms());
-      }
-    });
-  }
-  render() {
+
+function App(props) {
+    const prefersDarkMode = useMediaQuery('(prefers-color-scheme: dark)');
+
+    const theme = React.useMemo(
+        () =>
+            createMuiTheme({
+                palette: {
+                    type: prefersDarkMode ? 'dark' : 'light',
+                },
+            }),
+        [prefersDarkMode],
+    );
+
+    const selector = useSelector(state => {
+        return {
+            settingsFileExists: state.settings.settingsExists,
+            settingsLoading: state.settings.loading,
+            roomsLoading: state.rooms.loading,
+            rooms: state.rooms.rooms
+        };
+    })
+
+    const dispatch = useDispatch();
+    React.useEffect(() => {
+        dispatch(settingsOperations.checkSettingsExists()).then(() => {
+            if (selector.settingsFileExists) {
+                dispatch(roomsOperations.getRooms());
+            }
+        });
+        console.log("use effect called")
+    }, [settingsOperations, selector.settingsFileExists])
     if (
-      this.props.settingsLoading === true ||
-      this.props.roomsLoading === true ||
-      (this.props.roomsLoading === true && this.props.settingsLoading === true)
+        selector.settingsLoading === true ||
+        selector.roomsLoading === true ||
+        (selector.roomsLoading === true && selector.settingsLoading === true)
     ) {
-      return (
-        <div className="loading">
-          <CircularProgress />
-        </div>
-      );
+        return (
+            <div className="loading">
+                <CircularProgress/>
+            </div>
+        );
     } else if (
-      this.props.settingsFileExists === false &&
-      this.props.settingsLoading === false
+        selector.settingsFileExists === false &&
+        selector.settingsLoading === false
     ) {
-      return <LoginComponent />;
+        return <LoginComponent/>;
     } else if (
-      this.props.roomsLoading === false &&
-      this.props.settingsFileExists === true
+        selector.roomsLoading === false &&
+        selector.settingsFileExists === true
     ) {
-      return (
-        <MuiThemeProvider theme={theme}>
-          <HomeComponent />
-        </MuiThemeProvider>
-      );
+        return (
+            <MuiThemeProvider theme={theme}>
+                <HomeComponent/>
+            </MuiThemeProvider>
+        );
     } else {
-      return <p>Error</p>;
+        return <p>Error</p>;
     }
-  }
+
 }
 
-function mapStateToProps(state) {
-  return {
-    settingsFileExists: state.settings.settingsExists,
-    settingsLoading: state.settings.loading,
-    roomsLoading: state.rooms.loading,
-    rooms: state.rooms.rooms
-  };
-}
-
-export default connect(mapStateToProps)(App);
+export default App;
