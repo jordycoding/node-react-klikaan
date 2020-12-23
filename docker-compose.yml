@@ -4,7 +4,11 @@ services:
     build: .
     ports:
       - "5000:5000"
+    tty: true
+    stdin_open: true
   reactserver:
     build: ./client
     ports:
       - "8080:80"
+    tty: true
+    stdin_open: true
