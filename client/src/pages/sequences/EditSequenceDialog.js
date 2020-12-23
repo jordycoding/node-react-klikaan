@@ -22,6 +22,7 @@ import { sequencesOperations } from "../../modules/sequences";
 import { editsequenceActions } from "../../modules/editSequence";
 import { withSnackbar } from "notistack";
 import ChangeWaitTimeDialog from "../../components/ChangeWaitTimeDialog";
+import {withTranslation} from "react-i18next";
 
 function Transition(props) {
   return <Slide direction="up" {...props} />;
@@ -116,10 +117,10 @@ class EditSequenceDialog extends Component {
               color="inherit"
               classes={{ root: "titleText" }}
             >
-              Bewerk scene {this.props.sequenceTitle}
+              {`${this.props.t("edit sequence")} ${this.props.sequenceTitle}`}
             </Typography>
             <Button color="inherit" onClick={this.saveSequence}>
-              Opslaan
+              {this.props.t("save")}
             </Button>
           </Toolbar>
         </AppBar>
@@ -133,7 +134,7 @@ class EditSequenceDialog extends Component {
                       command.split(",")[0],
                       this.props.rooms
                     )}
-                    secondary={`Wait ${command.split(",")[1]}`}
+                    secondary={`${this.props.t("wait")} ${command.split(",")[1]}`}
                   />
                   <ListItemSecondaryAction>
                     <IconButton onClick={() => this.handleDelayChange(index)}>
@@ -184,4 +185,4 @@ function mapStateToProps(state) {
     sequenceCommands: state.editedSequence.sequenceCommands
   };
 }
-export default withSnackbar(connect(mapStateToProps)(EditSequenceDialog));
+export default withTranslation()(withSnackbar(connect(mapStateToProps)(EditSequenceDialog)));

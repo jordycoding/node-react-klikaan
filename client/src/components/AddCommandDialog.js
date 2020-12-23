@@ -26,6 +26,7 @@ import { connect } from "react-redux";
 import "./addCommandDialog.css";
 import { editsequenceActions } from "../modules/editSequence";
 import { withSnackbar } from "notistack";
+import {withTranslation} from "react-i18next";
 
 function Transition(props) {
   return <Slide direction="up" {...props} />;
@@ -137,7 +138,7 @@ class AddCommandDialog extends React.Component {
         onClose={this.props.handleClose}
         TransitionComponent={Transition}
       >
-        <DialogTitle>{"Add Command"}</DialogTitle>
+        <DialogTitle>{this.props.t("add command")}</DialogTitle>
         <DialogContent
           style={{
             overflowX: "hidden"
@@ -145,7 +146,7 @@ class AddCommandDialog extends React.Component {
         >
           <form>
             <FormControl className="formcontrol">
-              <InputLabel htmlFor="room">Room</InputLabel>
+              <InputLabel htmlFor="room">{this.props.t("room")}</InputLabel>
               <Select
                 value={this.state.roomId}
                 inputProps={{ name: "room", id: "room" }}
@@ -167,10 +168,10 @@ class AddCommandDialog extends React.Component {
                   value="alloffChecked"
                 />
               }
-              label="All off"
+              label={this.props.t("all off")}
             />
             <FormControl className="formcontrol">
-              <InputLabel htmlFor="device">Device</InputLabel>
+              <InputLabel htmlFor="device">{this.props.t("device")}</InputLabel>
               <Select
                 value={this.state.deviceId}
                 inputProps={{ name: "device", id: "device" }}
@@ -198,8 +199,8 @@ class AddCommandDialog extends React.Component {
                     : "block"
               }}
             >
-              <FormControlLabel value="on" control={<Radio />} label="on" />
-              <FormControlLabel value="off" control={<Radio />} label="off" />
+              <FormControlLabel value="on" control={<Radio />} label={this.props.t("on")} />
+              <FormControlLabel value="off" control={<Radio />} label={this.props.t("off")} />
             </RadioGroup>
             <Typography
               color="textPrimary"
@@ -231,7 +232,7 @@ class AddCommandDialog extends React.Component {
             />
             <TextField
               onChange={this.handleWaitChange}
-              placeholder="Waiting time in HH:MM:SS"
+              placeholder={this.props.t("wait time")}
               fullWidth
               style={{ "margin-top": "10px" }}
               error={
@@ -245,10 +246,10 @@ class AddCommandDialog extends React.Component {
 
         <DialogActions>
           <Button color="primary" onClick={this.addCommand}>
-            Add
+            {this.props.t("add")}
           </Button>
           <Button color="primary" onClick={this.props.handleClose}>
-            Cancel
+            {this.props.t("cancel")}
           </Button>
         </DialogActions>
       </Dialog>
@@ -263,6 +264,4 @@ function mapStateToProps(state) {
     sequenceCommands: state.editedSequence.sequenceCommands
   };
 }
-export default withSnackbar(
-  connect(mapStateToProps)(withMobileDialog()(AddCommandDialog))
-);
+export default withTranslation()(withSnackbar(connect(mapStateToProps)(withMobileDialog()(AddCommandDialog))));

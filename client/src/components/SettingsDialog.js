@@ -12,6 +12,7 @@ import IconButton from "@material-ui/core/IconButton";
 import CloseIcon from "@material-ui/icons/Close";
 import { removeSettings, saveSettingsToServer } from "../utils/api";
 import { withSnackbar } from "notistack";
+import {withTranslation} from "react-i18next";
 
 function Transition(props) {
   return <Slide direction="up" {...props} />;
@@ -38,7 +39,7 @@ class SettingsDialog extends Component {
                 root: "appText"
               }}
             >
-              Settings
+              {this.props.t("settings")}
             </Typography>
             <IconButton onClick={this.props.close} color={"inherit"}>
               <CloseIcon />
@@ -48,14 +49,14 @@ class SettingsDialog extends Component {
         <List>
           <ListItem button>
             <ListItemText
-              primary="Refresh settings"
+              primary={this.props.t("Refresh settings")}
               onClick={() => this.deleteSettings()}
             />
           </ListItem>
           <Divider />
           <ListItem button>
             <ListItemText
-              primary="Save settings to server"
+              primary={this.props.t("Save settings to server")}
               onClick={() => {
                 saveSettingsToServer()
                   .then(res => {
@@ -78,6 +79,14 @@ class SettingsDialog extends Component {
               }}
             />
           </ListItem>
+          <ListItem button>
+            <ListItemText
+              primary={this.props.t("change language")}
+              onClick={() => {
+                let newLanguage = this.props.i18n.language === "nl" ? "en" : "nl"
+                this.props.i18n.changeLanguage(newLanguage)
+              }} />
+          </ListItem>
           <Divider />
         </List>
       </Dialog>
@@ -85,4 +94,4 @@ class SettingsDialog extends Component {
   }
 }
 
-export default withSnackbar(SettingsDialog);
+export default withTranslation()(withSnackbar(SettingsDialog));

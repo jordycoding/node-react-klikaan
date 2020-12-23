@@ -9,7 +9,7 @@ import {createMuiTheme, MuiThemeProvider} from "@material-ui/core/styles";
 import {useSelector, useDispatch} from "react-redux";
 import useMediaQuery from "@material-ui/core/useMediaQuery";
 import {CssBaseline} from "@material-ui/core";
-
+import "./i18n"
 
 function App(props) {
     const prefersDarkMode = useMediaQuery('(prefers-color-scheme: dark)');
@@ -30,6 +30,11 @@ function App(props) {
                         dark: '#c88719',
                         main: '#ffb74d',
                         contrastText: '#000000'
+                    },
+                    on: {
+                        main: "#00ff00",
+                        light: "#ff0000",
+                        dark: "#0000ff"
                     }
                 },
             }),

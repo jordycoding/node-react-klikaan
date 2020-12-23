@@ -9,6 +9,7 @@ import "./device/device.css";
 import { turnOn, turnOff, dim } from "../../../utils/api";
 import { debounce } from "lodash";
 import styled, { css } from "styled-components";
+import {withTranslation} from "react-i18next";
 
 const MarginSlider = withStyles({
   root: {
@@ -81,10 +82,10 @@ class DeviceComponent extends Component {
               this.props.device.name.slice(1)}
           </Typography>
           <StyledButton onClick={this.turnOn} on>
-            Aan
+              {this.props.t("on")}
           </StyledButton>
           <StyledButton onClick={this.turnOff} off>
-            Uit
+              {this.props.t("off")}
           </StyledButton>
         </div>
       );
@@ -153,4 +154,4 @@ class DeviceComponent extends Component {
   }
 }
 
-export default DeviceComponent;
+export default withTranslation()(DeviceComponent);

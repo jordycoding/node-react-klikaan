@@ -12,6 +12,7 @@ import {
 import { connect } from "react-redux";
 import { editsequenceActions } from "../modules/editSequence";
 import { withSnackbar } from "notistack";
+import {withTranslation} from "react-i18next";
 
 function Transition(props) {
   return <Slide direction="up" {...props} />;
@@ -39,14 +40,14 @@ class ChangeWaitTimeDialog extends Component {
         onClose={this.handleClose}
         TransitionComponent={Transition}
       >
-        <DialogTitle>Change delay</DialogTitle>
+        <DialogTitle>{this.props.t("change delay")}</DialogTitle>
         <DialogContent>
           <DialogContentText>
-            Input the new delay in the format: HH:MM:SS
+            {this.props.t("input delay")}
           </DialogContentText>
           <TextField
             autoFocus
-            placeholder="Delay"
+            placeholder={this.props.t("delay")}
             onChange={this.handleDelayChange}
             error={
               !/([0-9][0-9]):(60|0[0-9]|[0-5][0-9]):(60|0[0-9]|[0-5][0-9]$)/.test(
@@ -57,10 +58,10 @@ class ChangeWaitTimeDialog extends Component {
         </DialogContent>
         <DialogActions>
           <Button onClick={this.props.handleClose} color="primary">
-            Cancel
+            {this.props.t("cancel")}
           </Button>
           <Button onClick={this.handleChange} color="primary">
-            Confirm change
+            {this.props.t("confirm change")}
           </Button>
         </DialogActions>
       </Dialog>
@@ -68,4 +69,4 @@ class ChangeWaitTimeDialog extends Component {
   }
 }
 
-export default withSnackbar(connect()(ChangeWaitTimeDialog));
+export default withTranslation()(withSnackbar(connect()(ChangeWaitTimeDialog)));

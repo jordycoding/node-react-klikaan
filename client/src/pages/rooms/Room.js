@@ -6,6 +6,7 @@ import { roomsOperations } from "../../modules/rooms/index.js";
 import "./room/room.css";
 import { connect } from "react-redux";
 import styled, { css } from "styled-components";
+import {withTranslation} from "react-i18next";
 
 const StyledButton = styled(Button)`
   && {
@@ -35,7 +36,7 @@ class RoomComponent extends Component {
         <div className="roomHeader">
           <Typography color="textSecondary">{this.props.room.name}</Typography>
           <StyledButton onClick={() => this.turnAllOff()}>
-            Alles uit
+            {this.props.t("all off")}
           </StyledButton>
         </div>
         {this.props.room.devices.map(device => {
@@ -55,4 +56,4 @@ class RoomComponent extends Component {
   }
 }
 
-export default connect()(RoomComponent);
+export default withTranslation()(connect()(RoomComponent));

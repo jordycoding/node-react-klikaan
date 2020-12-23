@@ -20,12 +20,14 @@ import { editsequenceActions } from "../modules/editSequence";
 import { withSnackbar } from "notistack";
 import ConfirmDeleteDialog from "./sequences/ConfirmDeleteDialog";
 import AddSequenceDialog from "./sequences/AddSequenceDialog";
+import {useTranslation} from "react-i18next";
 
 function SequencesComponent(props) {
   const [editDialogOpen, setEditDialogOpen] = useState(false);
   const [confirmDeleteDialogOpen, setConfirmDeleteDialogOpen] = useState(false);
   const [confirmDeleteDialogName, setConfirmDeleteDialogName] = useState("");
   const [addDialogOpen, setAddDialogOpen] = useState(false);
+  const {t, i18next} = useTranslation();
   function handleDialogClose() {
     setEditDialogOpen(false);
   }
@@ -67,7 +69,7 @@ function SequencesComponent(props) {
             fullWidth
             onClick={() => stopAllSequences()}
           >
-            Stop alle scenes
+            {t("Stop all sequences")}
           </Button>
         </div>
 

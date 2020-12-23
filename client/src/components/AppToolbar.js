@@ -7,6 +7,8 @@ import IconButton from "@material-ui/core/IconButton";
 import SettingsDialog from "./SettingsDialog";
 import { connect } from "react-redux";
 import { settingsOperations } from "../modules/settings";
+import {withTranslation} from "react-i18next";
+
 class AppToolbar extends Component {
   constructor(props) {
     super(props);
@@ -38,7 +40,7 @@ class AppToolbar extends Component {
                 root: "appText"
               }}
             >
-              Ruimtes
+              {this.props.t("Rooms")}
             </Typography>
             <IconButton color={"inherit"} onClick={this.toggleSettingsDialog}>
               <SettingsIcon />
@@ -64,4 +66,4 @@ function mapStateToProps(state) {
   };
 }
 
-export default connect(mapStateToProps)(AppToolbar);
+export default withTranslation()(connect(mapStateToProps)(AppToolbar));

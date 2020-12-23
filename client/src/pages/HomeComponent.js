@@ -4,16 +4,18 @@ import RoomsComponent from "./Rooms";
 import {Tabs, Tab} from "@material-ui/core";
 import SequencesComponent from "./Sequences";
 import CssBaseline from "@material-ui/core/CssBaseline"
+import {useTranslation} from "react-i18next";
 
 function HomeComponent(props) {
     const [value, setValue] = useState(0);
+    const {t, i18n} = useTranslation();
     const handleChange = (event, value) => {
         setValue(value);
     };
     const AppTabs = (
         <Tabs value={value} onChange={handleChange}>
-            <Tab label="Ruimtes"/>
-            <Tab label="Scenes"/>
+            <Tab label={t("Rooms")}/>
+            <Tab label={t("Sequences")}/>
         </Tabs>
     );
     return (

@@ -23,6 +23,7 @@ import ChangeWaitTimeDialog from "../../components/ChangeWaitTimeDialog";
 import { addSequence } from "../../utils/api";
 import { withSnackbar } from "notistack";
 import { sequencesOperations } from "../../modules/sequences";
+import {useTranslation} from "react-i18next";
 
 function Transition(props) {
   return <Slide direction="up" {...props} />;
@@ -34,6 +35,7 @@ function AddSequenceDialog(props) {
   const [changeDelayDialogOpen, setChangeDelayDialogOpen] = useState(false);
   const [changeDelayIndex, setChangeDelayIndex] = useState("");
   const [name, setName] = useState("");
+  const {t, i18next} = useTranslation();
   const addCommand = command => {
     setCommands([...commands, command]);
     setAddCommandDialogOpen(false);
@@ -107,15 +109,15 @@ function AddSequenceDialog(props) {
             color="inherit"
             classes={{ root: "titleText" }}
           >
-            Nieuwe scene
+            {t("new sequence")}
           </Typography>
           <Button color="inherit" onClick={saveSequence}>
-            Opslaan
+            {t("save")}
           </Button>
         </Toolbar>
       </AppBar>
       <TextField
-        placeholder="Name"
+        placeholder={t("name")}
         onChange={handleNameChange}
         style={{
           margin: "5px"
@@ -128,7 +130,7 @@ function AddSequenceDialog(props) {
               <ListItem key={index}>
                 <ListItemText
                   primary={commandToString(command.split(",")[0], props.rooms)}
-                  secondary={`Wait ${command.split(",")[1]}`}
+                  secondary={`${t("wait")} ${command.split(",")[1]}`}
                 />
                 <ListItemSecondaryAction>
                   <IconButton

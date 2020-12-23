@@ -3,6 +3,7 @@ import {
   AllOffCommand,
   DimCommand
 } from "./sequencesUtils/tests";
+import i18n from "../i18n";
 
 function commandToString(command, rooms) {
   if (OnOffCommand.test(command) === true) {
@@ -29,10 +30,10 @@ function commandToString(command, rooms) {
 }
 
 const DimToString = (dimValue, deviceName) =>
-  `Zet ${deviceName} op ${Math.round(dimValue / 0.01 / 32)}`;
+  `${i18n.t("turn")} ${deviceName} ${i18n.t("to")} ${Math.round(dimValue / 0.01 / 32)}`;
 const OnOffToString = (powerState, deviceName) =>
-  `Zet ${deviceName} ${powerState == 1 ? "Aan" : "Uit"}`;
-const AllOffToString = roomName => `Zet alles in ${roomName} uit`;
+  `${i18n.t("turn")} ${deviceName} ${powerState == 1 ? i18n.t("on").toLowerCase() : i18n.t("off").toLowerCase()}`;
+const AllOffToString = roomName => `${i18n.t("turn everything in")} ${roomName} ${i18n.t("off").toLowerCase()}`;
 
 function getRoomName(command, rooms) {
   let roomName = "";
